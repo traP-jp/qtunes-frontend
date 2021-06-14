@@ -1,0 +1,12 @@
+type: static
+
+work_dir: ./dist
+
+branch:
+  master:
+    startup: |
+      npm i -g npm n
+      n 16.3.0
+      exec $SHELL -l
+      npm ci
+      npm run build

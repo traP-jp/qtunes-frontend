@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "@vue/typescript",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": ["error", "never", { "beforeStatementContinuationChars": "never" }],
+    "semi-spacing": ["error", { "after": true, "before": false }],
+    "semi-style": ["error", "first"],
+    "no-extra-semi": "error",
+    "no-unexpected-multiline": "error",
+    "no-unreachable": "error",
+    "indent": ["error", 2]
+  }
+}

@@ -1,0 +1,24 @@
+## webhook で traQ に送る用の actions
+name: webhook
+
+on:
+  issues:
+    types: [opened, closed]
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [opened, closed, review_requested]
+  pull_request_review:
+    types: [submitted]
+
+permissions: read-all
+
+jobs:
+  webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload Message
+        uses: SSlime-s/traq-webhook@v3.3
+        with:
+          webhook-id: ${{ secrets.WEBHOOK_ID }}
+          webhook-secret: ${{ secrets.WEBHOOK_SECRET }}
