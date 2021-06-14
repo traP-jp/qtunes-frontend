@@ -3,7 +3,7 @@ type: static
 work_dir: ./dist
 
 branch:
-  master:
+  main:
     startup: |
       npm i -g npm n
       n 16.3.0
