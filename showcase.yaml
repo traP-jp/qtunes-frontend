@@ -7,6 +7,6 @@ branch:
     startup: |
       npm i -g npm n
       n 16.3.0
-      exec $SHELL -l
+      PATH="$PATH"
       npm ci
       npm run build
