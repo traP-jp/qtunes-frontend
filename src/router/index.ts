@@ -4,8 +4,13 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'top',
-    component: () => import('../views/Top.vue'),
+    component: () => import('../views/Top/index.vue'),
   },
+  {
+    path: '/files',
+    name: 'files',
+    component: () => import('../views/Files/index.vue'),
+  }
 ]
 
 // const routerHistory = createWebHistory(process.env.BASE_PATH)
