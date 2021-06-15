@@ -7,19 +7,20 @@
     "lint": "eslint --fix --ext .ts,js,vue --ignore-path .gitignore . && prettier --write --ext .ts,js,vue --ignore-path .gitignore ."
   },
   "dependencies": {
-    "element-plus": "^1.0.2-beta.48",
-    "vue": "^3.0.5",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",
+    "element-plus": "^1.0.2-beta.48",
     "sass": "^1.34.1",
     "typescript": "^4.3.2",
     "vite": "^2.3.7",
+    "vue": "^3.0.5",
     "vue-router": "^4.0.8",
     "vue-tsc": "^0.0.24",
     "vuex": "^4.0.1"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.3.3",
+    "@types/node": "^15.12.2",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
     "@vue/eslint-config-typescript": "^7.0.0",
