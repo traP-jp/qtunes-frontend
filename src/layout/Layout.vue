@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <el-container class="layout-container">
-      <el-header class="header-container"> header </el-header>
+      <layout-header />
+      <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
         <el-aside>
           <div>aside</div>
@@ -13,6 +14,7 @@
           <slot />
         </el-main>
       </el-container>
+      <el-footer>footer</el-footer>
     </el-container>
   </div>
 </template>
@@ -20,11 +22,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import creatorslist from '../components/creatorslist.vue'
+import LayoutHeader from './component/LayoutHeader.vue'
 
 export default defineComponent({
   name: 'Layout',
   components: {
     creatorslist,
+    LayoutHeader,
   },
   setup() {},
 })
