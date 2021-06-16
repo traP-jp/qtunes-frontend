@@ -1,13 +1,13 @@
 <template>
-  <el-card shadow="never" class="card">
+  <el-card shadow="never" class="creatore_lement_card">
     <el-row :gutter="20">
       <el-col :span="40">
         <img
-          :src="`https://q.trap.jp/api/1.0/public/icon/${traQID}`"
+          :src="`https://q.trap.jp/api/1.0/public/icon/${traqId}`"
           width="40"
         />
       </el-col>
-      <el-col :span="80" class="text">@{{ traQID }} </el-col>
+      <el-col :span="80" class="traqid_text">@{{ traqId }} </el-col>
     </el-row>
   </el-card>
 </template>
@@ -18,7 +18,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'CreatorElement',
   props: {
-    traQID: {
+    traqId: {
       type: String,
       required: true,
     },
@@ -30,14 +30,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.text {
+.traqid_text {
   text-align: left;
   line-height: 44px;
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.card {
+.creator_element_card {
   cursor: pointer !important;
   :hover {
     color: #409eff;

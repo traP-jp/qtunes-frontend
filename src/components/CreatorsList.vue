@@ -1,9 +1,9 @@
 <template>
-  <creator-element
+  <CreatorElement
     v-for="creator in creators"
     :key="creator"
-    :tra-q-i-d="creator"
-  ></creator-element>
+    :traq-id="creator"
+  />
 </template>
 
 <script lang="ts">
