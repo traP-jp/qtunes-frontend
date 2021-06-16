@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="never" class="creatore_lement_card">
+  <el-card shadow="never" class="creator_element_card">
     <el-row :gutter="20">
       <el-col :span="40">
         <img
