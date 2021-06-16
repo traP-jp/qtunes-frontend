@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
     path: '/files',
     name: 'files',
     component: () => import('../views/Files/index.vue'),
-  }
+  },
 ]
 
 // const routerHistory = createWebHistory(process.env.BASE_PATH)

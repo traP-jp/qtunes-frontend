@@ -9,12 +9,10 @@ import FileElement from '../../components/FileElement.vue'
 export default defineComponent({
   name: 'Files',
   components: {
-    FileElement
-  }
+    FileElement,
+  },
   setup() {},
 })
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
