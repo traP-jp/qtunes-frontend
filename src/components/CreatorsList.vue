@@ -1,14 +1,14 @@
 <template>
-  <creator
+  <Creator
     v-for="creator in creators"
     v-bind:key="creator"
     :traQID="creator"
-  ></creator>
+  ></Creator>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import creator from './creator.vue'
+import Creator from './Creator.vue'
 
 export default defineComponent({
   setup() {
@@ -24,7 +24,7 @@ export default defineComponent({
     }
   },
   components: {
-    creator,
+    Creator,
   },
 })
 </script>

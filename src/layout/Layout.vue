@@ -7,7 +7,7 @@
         <el-aside>
           <div>aside</div>
           <div>
-            <creatorslist />
+            <CreatorsList />
           </div>
         </el-aside>
         <el-main class="main-content">
@@ -21,13 +21,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import creatorslist from '../components/creatorslist.vue'
+import CreatorsList from '../components/CreatorsList.vue'
 import LayoutHeader from './component/LayoutHeader.vue'
 
 export default defineComponent({
   name: 'Layout',
   components: {
-    creatorslist,
+    CreatorsList,
     LayoutHeader,
   },
   setup() {},
