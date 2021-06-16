@@ -1,16 +1,20 @@
 <template>
-  <Creator
+  <creator-element
     v-for="creator in creators"
-    v-bind:key="creator"
-    :traQID="creator"
-  ></Creator>
+    :key="creator"
+    :tra-q-i-d="creator"
+  ></creator-element>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Creator from './Creator.vue'
+import CreatorElement from './CreatorElement.vue'
 
 export default defineComponent({
+  name: 'CreatorsList',
+  components: {
+    CreatorElement,
+  },
   setup() {
     const creators: String[] = [
       'itt',
@@ -18,13 +22,11 @@ export default defineComponent({
       'xxarupakaxx',
       'Ras',
       'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
     ]
     return {
       creators,
     }
-  },
-  components: {
-    Creator,
   },
 })
 </script>
