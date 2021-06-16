@@ -1,23 +1,28 @@
 <template>
   <div id="app">
     <el-container class="layout-container">
-      <el-header class="header-container"> header </el-header>
+      <layout-header />
+      <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
         <el-aside> aside </el-aside>
         <el-main class="main-content">
           <slot />
         </el-main>
       </el-container>
+      <el-footer>footer</el-footer>
     </el-container>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import LayoutHeader from './component/LayoutHeader.vue'
 
 export default defineComponent({
   name: 'Layout',
-  components: {},
+  components: {
+    LayoutHeader,
+  },
   setup() {},
 })
 </script>
