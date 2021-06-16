@@ -12,8 +12,6 @@
         </el-aside>
         <el-main class="main-content">
           <slot />
-
-          <music />
         </el-main>
       </el-container>
       <el-footer>footer</el-footer>
@@ -25,14 +23,12 @@
 import { defineComponent } from 'vue'
 import CreatorsList from '../components/CreatorsList.vue'
 import LayoutHeader from './component/LayoutHeader.vue'
-import Music from '../components/Music.vue'
 
 export default defineComponent({
   name: 'Layout',
   components: {
     CreatorsList,
     LayoutHeader,
-    Music,
   },
   setup() {},
 })
