@@ -17,9 +17,7 @@
               @input="onPosChange"
             />
           </el-col>
-          <el-col class="time-msg">{{
-            formatPos(musicLength)
-          }}</el-col>
+          <el-col class="time-msg">{{ formatPos(musicLength) }}</el-col>
         </el-row>
       </el-col>
       <el-col :offset="1" :span="1">
