@@ -17,7 +17,7 @@
     />
     <div class="time-slider-container">
       <el-row class="time-slider-with-msg">
-        <el-col class="time-msg">{{ formatPos(nowPos) }}</el-col>
+        <el-col class="time-msg time-msg__left">{{ formatPos(nowPos) }}</el-col>
         <el-col class="time-slider-col">
           <el-slider
             v-model.number="nowPos"
@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import createAudioElement from '../../utils/audio'
+import createAudioElement from '/@/utils/audio'
 import { ref } from 'vue'
 
 export default defineComponent({
@@ -124,6 +124,9 @@ export default defineComponent({
     .time-msg {
       width: 4rem;
       line-height: 42px;
+    }
+    .time-msg__left {
+      color: #409eff;
     }
     .time-slider-col {
       width: calc(100% - 8rem);
