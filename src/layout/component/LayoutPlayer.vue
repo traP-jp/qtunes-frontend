@@ -13,7 +13,7 @@
       :min="0"
       :max="100"
       class="volume-slider"
-      @change="onVolChange"
+      @input="onVolChange"
     />
     <div class="time-slider-container">
       <el-row class="time-slider-with-msg">
@@ -26,7 +26,7 @@
             :max="Number.isNaN(musicLength) ? 100 : musicLength"
             :format-tooltip="formatPos"
             class="time-slider"
-            @change="onPosChange"
+            @input="onPosChange"
           />
         </el-col>
         <el-col class="time-msg">{{ formatPos(musicLength) }}</el-col>
@@ -63,12 +63,14 @@ export default defineComponent({
     )
     const nowVol = ref(audio.value.volume)
     const musicLength = computed(() => {
-      console.log(audio.value.maxTime)
       return Math.floor(audio.value.maxTime)
     })
     const isPlayed = computed(() => !audio.value.isPaused)
 
     const onPosChange = (event: number) => {
+      if (!Number.isInteger(event)) {
+        return
+      }
       audio.value.setTime(event)
     }
     const onVolChange = (event: number) => {
