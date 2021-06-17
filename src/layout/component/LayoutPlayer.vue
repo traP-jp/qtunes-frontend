@@ -1,6 +1,12 @@
 <template>
   <div>
-    <el-button @click="togglePlay">{{ isPlayed ? 'Pause' : 'Play' }}</el-button>
+    <el-button class="big-icon-button" plain circle @click="togglePlay">
+      <i
+        :class="`${
+          isPlayed ? 'el-icon-video-pause' : 'el-icon-video-play'
+        } big-icon`"
+      />
+    </el-button>
     <el-slider
       v-model.number="nowVol"
       :step="1"
@@ -102,6 +108,13 @@ export default defineComponent({
 .volume-slider {
   display: inline-block;
   width: 20%;
+}
+.big-icon-button {
+  padding: 0 !important;
+  border: 0 !important;
+  & > span > i {
+    font-size: 2rem;
+  }
 }
 .time-slider-container {
   text-align: center;
