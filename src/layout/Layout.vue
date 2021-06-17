@@ -4,8 +4,7 @@
       <layout-header />
       <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
-        <el-aside>
-          <div>aside</div>
+        <el-aside class="aside-content">
           <div>
             <CreatorsList />
           </div>

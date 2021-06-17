@@ -1,9 +1,11 @@
 <template>
-  <CreatorElement
-    v-for="creator in creators"
-    :key="creator"
-    :traq-id="creator"
-  />
+  <el-scrollbar height="89.5vh">
+    <CreatorElement
+      v-for="creator in creators"
+      :key="creator"
+      :traq-id="creator"
+    />
+  </el-scrollbar>
 </template>
 
 <script lang="ts">
@@ -18,6 +20,23 @@ export default defineComponent({
   setup() {
     const creators: String[] = [
       'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
+      'itt',
       'SSlime',
       'xxarupakaxx',
       'Ras',
@@ -30,3 +49,6 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scopped>
+</style>
