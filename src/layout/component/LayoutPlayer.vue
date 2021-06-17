@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import createAudioElement from '/@/utils/audio'
+import createAudioElement from '../../utils/audio'
 import { ref } from 'vue'
 
 export default defineComponent({
