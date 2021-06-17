@@ -1,13 +1,5 @@
 <template>
   <div>
-    <el-slider
-      v-model.number="nowPos"
-      :step="1"
-      :min="0"
-      :max="Number.isNaN(musicLength) ? 100 : musicLength"
-      :format-tooltip="formatPos"
-      @change="onPosChange"
-    />
     <el-button @click="togglePlay">{{ isPlayed ? 'Pause' : 'Play' }}</el-button>
     <el-slider
       v-model.number="nowVol"
@@ -17,6 +9,23 @@
       class="volume-slider"
       @change="onVolChange"
     />
+    <div class="time-slider-container">
+      <el-row class="time-slider-with-msg">
+        <el-col class="time-msg">{{ formatPos(nowPos) }}</el-col>
+        <el-col class="time-slider-col">
+          <el-slider
+            v-model.number="nowPos"
+            :step="1"
+            :min="0"
+            :max="Number.isNaN(musicLength) ? 100 : musicLength"
+            :format-tooltip="formatPos"
+            class="time-slider"
+            @change="onPosChange"
+          />
+        </el-col>
+        <el-col class="time-msg">{{ formatPos(musicLength) }}</el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -61,6 +70,9 @@ export default defineComponent({
     }
 
     const formatPos = (val: number) => {
+      if (Number.isNaN(val)) {
+        return '-'
+      }
       const floorVal = Math.floor(val)
       const minute = (floorVal / 60) | 0
       const second = floorVal % 60
@@ -90,5 +102,27 @@ export default defineComponent({
 .volume-slider {
   display: inline-block;
   width: 20%;
+}
+.time-slider-container {
+  text-align: center;
+  .time-slider-with-msg {
+    width: 60%;
+    display: inline-block;
+    .time-msg {
+      width: 4rem;
+      line-height: 42px;
+    }
+    .time-slider-col {
+      width: calc(100% - 8rem);
+      padding: {
+        left: 18px;
+        right: 18px;
+      }
+      .time-slider {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+  }
 }
 </style>
