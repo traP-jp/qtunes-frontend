@@ -40,23 +40,6 @@
         />
       </el-col>
     </el-row>
-    <!-- <div class="time-slider-container">
-      <el-row class="time-slider-with-msg">
-        <el-col class="time-msg time-msg__left">{{ formatPos(nowPos) }}</el-col>
-        <el-col class="time-slider-col">
-          <el-slider
-            v-model.number="nowPos"
-            :step="1"
-            :min="0"
-            :max="Number.isNaN(musicLength) ? 100 : musicLength"
-            :format-tooltip="formatPos"
-            class="time-slider"
-            @input="onPosChange"
-          />
-        </el-col>
-        <el-col class="time-msg">{{ formatPos(musicLength) }}</el-col>
-      </el-row>
-    </div> -->
   </div>
 </template>
 
