@@ -1,21 +1,48 @@
 <template>
   <div>
-    <el-button class="big-icon-button" plain circle @click="togglePlay">
-      <i
-        :class="`${
-          isPlayed ? 'el-icon-video-pause' : 'el-icon-video-play'
-        } big-icon`"
-      />
-    </el-button>
-    <el-slider
-      v-model.number="nowVol"
-      :step="1"
-      :min="0"
-      :max="100"
-      class="volume-slider"
-      @input="onVolChange"
-    />
-    <div class="time-slider-container">
+    <el-row class="player-container">
+      <el-col :offset="6" :span="12" class="time-slider-container">
+        <el-row class="time-slider-with-msg">
+          <el-col class="time-msg time-msg__left">{{
+            formatPos(nowPos)
+          }}</el-col>
+          <el-col class="time-slider-col">
+            <el-slider
+              v-model.number="nowPos"
+              :step="1"
+              :min="0"
+              :max="Number.isNaN(musicLength) ? 100 : musicLength"
+              :format-tooltip="formatPos"
+              class="time-slider"
+              @input="onPosChange"
+            />
+          </el-col>
+          <el-col class="time-msg">{{
+            formatPos(musicLength)
+          }}</el-col>
+        </el-row>
+      </el-col>
+      <el-col :offset="1" :span="1">
+        <el-button class="big-icon-button" plain circle @click="togglePlay">
+          <i
+            :class="`${
+              isPlayed ? 'el-icon-video-pause' : 'el-icon-video-play'
+            } big-icon`"
+          />
+        </el-button>
+      </el-col>
+      <el-col :span="4">
+        <el-slider
+          v-model.number="nowVol"
+          :step="1"
+          :min="0"
+          :max="100"
+          class="volume-slider"
+          @input="onVolChange"
+        />
+      </el-col>
+    </el-row>
+    <!-- <div class="time-slider-container">
       <el-row class="time-slider-with-msg">
         <el-col class="time-msg time-msg__left">{{ formatPos(nowPos) }}</el-col>
         <el-col class="time-slider-col">
@@ -31,7 +58,7 @@
         </el-col>
         <el-col class="time-msg">{{ formatPos(musicLength) }}</el-col>
       </el-row>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -107,38 +134,44 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.volume-slider {
-  display: inline-block;
-  width: 20%;
-}
-.big-icon-button {
-  padding: 0 !important;
-  border: 0 !important;
-  & > span > i {
-    font-size: 2rem;
+.player-container {
+  padding: {
+    top: 16px;
+    bottom: 16px;
   }
-}
-.time-slider-container {
-  text-align: center;
-  .time-slider-with-msg {
-    width: 60%;
+  .volume-slider {
     display: inline-block;
-    .time-msg {
-      width: 4rem;
-      line-height: 42px;
+    width: 100%;
+  }
+  .big-icon-button {
+    padding: 0 !important;
+    border: 0 !important;
+    & > span > i {
+      font-size: 2rem;
     }
-    .time-msg__left {
-      color: #409eff;
-    }
-    .time-slider-col {
-      width: calc(100% - 8rem);
-      padding: {
-        left: 18px;
-        right: 18px;
+  }
+  .time-slider-container {
+    text-align: center;
+    .time-slider-with-msg {
+      width: 100%;
+      display: inline-block;
+      .time-msg {
+        width: 4rem;
+        line-height: 38px;
       }
-      .time-slider {
-        display: inline-block;
-        width: 100%;
+      .time-msg__left {
+        color: #409eff;
+      }
+      .time-slider-col {
+        width: calc(100% - 8rem);
+        padding: {
+          left: 18px;
+          right: 18px;
+        }
+        .time-slider {
+          display: inline-block;
+          width: 100%;
+        }
       }
     }
   }
