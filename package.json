@@ -2,7 +2,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port 8080",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "serve": "vite preview",
     "lint": "eslint --fix --ext .ts,js,vue --ignore-path .gitignore . && prettier --write --ext .ts,js,vue --ignore-path .gitignore ."
   },
