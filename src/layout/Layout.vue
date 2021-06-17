@@ -4,7 +4,12 @@
       <layout-header />
       <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
-        <el-aside> aside </el-aside>
+        <el-aside>
+          <div>aside</div>
+          <div>
+            <CreatorsList />
+          </div>
+        </el-aside>
         <el-main class="main-content">
           <slot />
         </el-main>
@@ -19,12 +24,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import CreatorsList from '../components/CreatorsList.vue'
 import LayoutHeader from './component/LayoutHeader.vue'
 import LayoutPlayer from './component/LayoutPlayer.vue'
 
 export default defineComponent({
   name: 'Layout',
   components: {
+    CreatorsList,
     LayoutHeader,
     LayoutPlayer,
   },
