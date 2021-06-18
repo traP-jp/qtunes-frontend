@@ -19,20 +19,13 @@
         @select="handleSelect"
       >
         <el-menu-item index="1">
-          <el-tooltip effect="dark" placement="bottom" content="Home">
-            <div class="el-icon-s-home" />
-          </el-tooltip>
+          <menu-icon />
         </el-menu-item>
-
         <el-menu-item index="2">
-          <el-tooltip effect="dark" placement="bottom" content="favs">
-            <div class="el-icon-star-on" />
-          </el-tooltip>
+          <menu-icon />
         </el-menu-item>
         <el-menu-item index="3">
-          <el-tooltip effect="dark" placement="bottom" content="creators">
-            <div class="el-icon-user-solid" />
-          </el-tooltip>
+          <menu-icon />
         </el-menu-item>
       </el-menu>
     </div>
@@ -41,6 +34,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import MenuIcon from '../../components/MenuIcon.vue'
 
 export default defineComponent({
   name: 'LayoutHeader',
@@ -50,6 +44,7 @@ export default defineComponent({
     return {
       activeIndex,
       handleSelect,
+      MenuIcon,
     }
   },
 })
