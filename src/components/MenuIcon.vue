@@ -1,6 +1,6 @@
 <template>
-  <el-tooltip effect="dark" placement="bottom" content="aaa">
-    <div :class="`el-icon-platform-eleme`" />
+  <el-tooltip effect="dark" placement="bottom" :content="`${msg}`">
+    <i :class="`${icon}`" />
   </el-tooltip>
 </template>
 
@@ -10,14 +10,14 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'MenuIcon',
   props: {
-    // name: {
-    //   type: String,
-    //   required: true,
-    // },
-    // icon: {
-    //   type: String,
-    //   required: true,
-    // },
+    msg: {
+      type: String,
+      required: true,
+    },
+    icon: {
+      type: String,
+      required: true,
+    },
   },
   setup() {},
 })

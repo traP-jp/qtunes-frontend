@@ -3,10 +3,7 @@
     <div class="left-content">
       <el-row gutter="10">
         <el-col span="20" class="logo">
-          <img
-            src="https://pbs.twimg.com/profile_images/1404769598562455554/BOFS5GUG_400x400.png"
-            width="40"
-          />
+          <img src="../../assets/logo.png" width="40" />
         </el-col>
         <el-col span="20"> PRODUCT NAME </el-col>
       </el-row>
@@ -19,13 +16,13 @@
         @select="handleSelect"
       >
         <el-menu-item index="1">
-          <menu-icon />
+          <menu-icon msg="index 1" icon="el-icon-eleme" />
         </el-menu-item>
         <el-menu-item index="2">
-          <menu-icon />
+          <menu-icon msg="index 2" icon="el-icon-eleme" />
         </el-menu-item>
         <el-menu-item index="3">
-          <menu-icon />
+          <menu-icon msg="index 3" icon="el-icon-eleme" />
         </el-menu-item>
       </el-menu>
     </div>
@@ -38,13 +35,15 @@ import MenuIcon from '../../components/MenuIcon.vue'
 
 export default defineComponent({
   name: 'LayoutHeader',
+  components: {
+    MenuIcon,
+  },
   setup() {
     const activeIndex = 1
     const handleSelect = () => {}
     return {
       activeIndex,
       handleSelect,
-      MenuIcon,
     }
   },
 })
