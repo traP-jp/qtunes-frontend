@@ -7,6 +7,9 @@ interface AudioElementOptions {
 
 const createAudioElement = (id: string, options: AudioElementOptions) => {
   const nowAudio = ref(new Audio('http://www.hmix.net/music/n/n148.mp3')) // TODO: api
+  const userId = ref('SSlime')
+  userId.value = 'takku_bobshiroshiro_titech_trap'
+  const title = ref('サンプルタイトル')
 
   nowAudio.value.load()
 
@@ -53,6 +56,8 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     time,
     maxTime,
     volume,
+    userId,
+    title,
   }
 }
 

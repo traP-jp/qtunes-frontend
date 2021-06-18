@@ -1,7 +1,26 @@
 <template>
   <div>
     <el-row class="player-container">
-      <el-col :offset="6" :span="12" class="time-slider-container">
+      <el-col :span="4" class="all-info-container">
+        <router-link :to="composersLink">
+          <img
+            height="38"
+            width="38"
+            :src="`https://q.trap.jp/api/1.0/public/icon/${audio.userId}`"
+          />
+        </router-link>
+        <div class="info-container">
+          <div class="sound-title">
+            {{ audio.title }}
+          </div>
+          <router-link :to="composersLink">
+            <div class="sound-composer">
+              {{ audio.userId }}
+            </div>
+          </router-link>
+        </div>
+      </el-col>
+      <el-col :offset="2" :span="12" class="time-slider-container">
         <el-row class="time-slider-with-msg">
           <el-col class="time-msg time-msg__left">{{
             formatPos(nowPos)
@@ -10,7 +29,6 @@
             <el-slider
               v-model.number="nowPos"
               :step="1"
-              :min="0"
               :max="Number.isNaN(musicLength) ? 100 : musicLength"
               :format-tooltip="formatPos"
               class="time-slider"
@@ -99,6 +117,8 @@ export default defineComponent({
       isPlayed.value ? audio.value.pause() : audio.value.play()
     }
 
+    const composersLink = `/files/${audio.value.userId}`
+
     return {
       audio,
       musicLength,
@@ -109,6 +129,7 @@ export default defineComponent({
       isPlayed,
       togglePlay,
       formatPos,
+      composersLink,
     }
   },
 })
@@ -119,16 +140,32 @@ export default defineComponent({
   padding: {
     top: 16px;
     bottom: 16px;
+    right: 16px;
+    left: 16px;
   }
-  .volume-slider {
-    display: inline-block;
-    width: 100%;
-  }
-  .big-icon-button {
-    padding: 0 !important;
-    border: 0 !important;
-    & > span > i {
-      font-size: 2rem;
+  .all-info-container {
+    overflow: hidden;
+    display: flex;
+    .info-container {
+      overflow: hidden;
+      margin-left: 12px;
+      flex-shrink: 1;
+      & > a {
+        text-decoration-line: none;
+      }
+      .sound-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 1.2rem;
+      }
+      .sound-composer {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.8rem;
+        color: #909399;
+      }
     }
   }
   .time-slider-container {
@@ -155,6 +192,17 @@ export default defineComponent({
         }
       }
     }
+  }
+  .big-icon-button {
+    padding: 0 !important;
+    border: 0 !important;
+    & > span > i {
+      font-size: 2rem;
+    }
+  }
+  .volume-slider {
+    display: inline-block;
+    width: 100%;
   }
 }
 </style>
