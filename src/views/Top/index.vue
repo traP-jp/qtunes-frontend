@@ -16,7 +16,11 @@ export default defineComponent({
     const store = useStore()
     const id = ref('')
     const chgId = () => {
-      store.dispatch('chgAudio', { id: id.value })
+      store.dispatch('chgAudio', {
+        id: id.value,
+        title: 'sample title',
+        composer: 'takku_bobshiroshiro_titech_trap',
+      })
     }
     return {
       id,

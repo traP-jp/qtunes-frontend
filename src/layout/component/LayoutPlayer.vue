@@ -6,18 +6,18 @@
           <img
             height="38"
             width="38"
-            :src="`https://q.trap.jp/api/1.0/public/icon/${audio.userId}`"
+            :src="`https://q.trap.jp/api/1.0/public/icon/${userId}`"
           />
         </router-link>
         <div class="info-container">
-          <el-tooltip :content="audio.title" placement="top" :show-after="300">
+          <el-tooltip :content="title" placement="top" :show-after="300">
             <div class="sound-title">
-              {{ audio.title }}
+              {{ title }}
             </div>
           </el-tooltip>
           <router-link :to="composersLink">
             <div class="sound-composer">
-              {{ audio.userId }}
+              {{ userId }}
             </div>
           </router-link>
         </div>
@@ -84,6 +84,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
   },
   setup(props) {
     const nowPos = ref(0)
@@ -100,6 +108,7 @@ export default defineComponent({
     watch(() => props.id, (id: string) => {
       nowPos.value = 0
       audio.value.broke()
+      const flag = audio.value.isLoop
       audio.value = ref(createAudioElement(id, {
         ended: () => {
           console.log('end !!')
@@ -109,6 +118,9 @@ export default defineComponent({
         }
       })).value
       audio.value.setVolume(nowVol.value)
+      if (audio.value.isLoop !== flag) {
+        audio.value.toggleLoop()
+      }
       audio.value.play()
     })
     const nowVol = ref(audio.value.volume)
@@ -141,7 +153,7 @@ export default defineComponent({
       isPlayed.value ? audio.value.pause() : audio.value.play()
     }
 
-    const composersLink = `/files/${audio.value.userId}`
+    const composersLink = `/files/${props.userId}`
 
     return {
       audio,
