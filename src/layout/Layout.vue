@@ -15,7 +15,7 @@
         </el-main>
       </el-container>
       <el-footer class="fixed-footer" height="auto">
-        <LayoutPlayer :id="musicId" :userId="userId" :title="title" />
+        <LayoutPlayer :id="musicId" :user-id="userId" :title="title" />
       </el-footer>
       <!-- <el-footer>footer</el-footer> -->
     </el-container>
