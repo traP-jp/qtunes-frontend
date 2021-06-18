@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar height="89.5vh">
+  <el-scrollbar height="84.5vh">
     <CreatorElement
       v-for="creator in creators"
       :key="creator"
