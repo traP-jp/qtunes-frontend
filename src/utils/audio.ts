@@ -1,4 +1,4 @@
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 interface AudioElementOptions {
   ended: () => void
@@ -23,20 +23,25 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     nowAudio.value.pause()
   }
 
+  const isLoop = ref(nowAudio.value.loop)
+  const toggleLoop = () => {
+    isLoop.value = !isLoop.value
+  }
+
   const volume = ref(Math.floor(nowAudio.value.volume) * 100)
   const setVolume = (nxtVolume: number) => {
     volume.value = nxtVolume
     nowAudio.value.volume = nxtVolume / 100
   }
 
-  const time = computed(() => nowAudio.value.currentTime)
-
   const maxTime = ref(nowAudio.value.duration)
   nowAudio.value.addEventListener('durationchange', (_event) => {
     maxTime.value = nowAudio.value.duration
   })
 
+  const time = ref(nowAudio.value.currentTime)
   const setTime = (nxtTime: number) => {
+    time.value = nxtTime
     nowAudio.value.currentTime = nxtTime
   }
 
@@ -44,13 +49,39 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     options.timeUpdate(nowAudio.value.currentTime)
   })
   nowAudio.value.addEventListener('ended', (_event) => {
+    if (isLoop.value) {
+      setTime(0)
+      play()
+      return
+    }
     options.ended()
   })
+
+  const broke = () => {
+    nowAudio.value.pause()
+    nowAudio.value.removeEventListener('durationchange', (_event) => {
+      maxTime.value = nowAudio.value.duration
+    })
+    nowAudio.value.removeEventListener('timeupdate', (_event) => {
+      options.timeUpdate(nowAudio.value.currentTime)
+    })
+    nowAudio.value.removeEventListener('ended', (_event) => {
+      console.log('end')
+      if (isLoop.value) {
+        setTime(0)
+        play()
+        return
+      }
+      options.ended()
+    })
+  }
 
   return {
     play,
     pause,
     isPaused,
+    toggleLoop,
+    isLoop,
     setVolume,
     setTime,
     time,
@@ -58,6 +89,7 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     volume,
     userId,
     title,
+    broke,
   }
 }
 

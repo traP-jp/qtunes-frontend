@@ -38,7 +38,16 @@
           <el-col class="time-msg">{{ formatPos(musicLength) }}</el-col>
         </el-row>
       </el-col>
-      <el-col :offset="1" :span="1">
+      <el-col :offset="0" :span="2" class="controle-button-container">
+        <el-button
+          class="big-icon-button"
+          :type="audio.isLoop ? 'primary' : 'default'"
+          plain
+          circle
+          @click="audio.toggleLoop"
+        >
+          <i class="el-icon-refresh-right" />
+        </el-button>
         <el-button class="big-icon-button" plain circle @click="togglePlay">
           <i
             :class="`${
@@ -75,7 +84,6 @@ export default defineComponent({
     },
   },
   setup() {
-    console.log('setup')
     const nowPos = ref(0)
     const audio = ref(
       createAudioElement('', {
@@ -89,7 +97,7 @@ export default defineComponent({
     )
     const nowVol = ref(audio.value.volume)
     const musicLength = computed(() => {
-      return Math.floor(audio.value.maxTime)
+      return Math.ceil(audio.value.maxTime)
     })
     const isPlayed = computed(() => !audio.value.isPaused)
 
@@ -107,9 +115,9 @@ export default defineComponent({
       if (Number.isNaN(val)) {
         return '-'
       }
-      const floorVal = Math.floor(val)
-      const minute = (floorVal / 60) | 0
-      const second = floorVal % 60
+      const ceilVal = Math.ceil(val)
+      const minute = (ceilVal / 60) | 0
+      const second = ceilVal % 60
       return `${minute}:${('00' + second).slice(-2)}`
     }
 
@@ -193,11 +201,23 @@ export default defineComponent({
       }
     }
   }
-  .big-icon-button {
-    padding: 0 !important;
-    border: 0 !important;
-    & > span > i {
-      font-size: 2rem;
+  .controle-button-container {
+    display: flex;
+    padding-right: 16px;
+    .big-icon-button {
+      padding: 0 !important;
+      border: 0 !important;
+      min-height: 0 !important;
+      margin: {
+        top: auto;
+        bottom: auto;
+      }
+      &:first-of-type {
+        margin-left: auto;
+      }
+      & > span > i {
+        font-size: 1.5rem;
+      }
     }
   }
   .volume-slider {
