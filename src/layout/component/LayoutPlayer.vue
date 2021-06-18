@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
 import createAudioElement from '../../utils/audio'
 import { ref } from 'vue'
 
@@ -85,7 +85,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const nowPos = ref(0)
     const audio = ref(
       createAudioElement('', {
@@ -97,6 +97,20 @@ export default defineComponent({
         },
       })
     )
+    watch(() => props.id, (id: string) => {
+      nowPos.value = 0
+      audio.value.broke()
+      audio.value = ref(createAudioElement(id, {
+        ended: () => {
+          console.log('end !!')
+        },
+        timeUpdate: (time: number) => {
+          nowPos.value = time
+        }
+      })).value
+      audio.value.setVolume(nowVol.value)
+      audio.value.play()
+    })
     const nowVol = ref(audio.value.volume)
     const musicLength = computed(() => {
       return Math.ceil(audio.value.maxTime)

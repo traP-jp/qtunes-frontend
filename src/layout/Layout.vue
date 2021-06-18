@@ -15,7 +15,7 @@
         </el-main>
       </el-container>
       <el-footer class="fixed-footer" height="auto">
-        <LayoutPlayer id="" />
+        <LayoutPlayer :id="musicId" />
       </el-footer>
       <!-- <el-footer>footer</el-footer> -->
     </el-container>
@@ -23,8 +23,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import CreatorsList from '../components/CreatorsList.vue'
+import { useStore } from '../main'
 import LayoutHeader from './component/LayoutHeader.vue'
 import LayoutPlayer from './component/LayoutPlayer.vue'
 
@@ -35,7 +36,16 @@ export default defineComponent({
     LayoutHeader,
     LayoutPlayer,
   },
-  setup() {},
+  setup() {
+    const store = useStore()
+    const id = ref(store.state.id)
+    store.watch(() => store.state.id, newId => {
+      id.value = newId
+    })
+    return {
+      musicId: id,
+    }
+  },
 })
 </script>
 
