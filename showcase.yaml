@@ -10,3 +10,6 @@ branch:
       PATH="$PATH"
       npm ci
       npm run build
+    envs: {
+      NODE_ENV: 'production'
+    }
