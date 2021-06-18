@@ -25,7 +25,7 @@ const store = createStore<StateType>({
       state.id = payload.id
       state.title = payload.title
       state.composer = payload.composer
-    }
+    },
   },
   actions: {
     chgAudio(context, payload: PayloadType) {

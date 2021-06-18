@@ -41,11 +41,14 @@ export default defineComponent({
     const id = ref(store.state.id)
     const title = ref(store.state.title)
     const userId = ref(store.state.composer)
-    store.watch(() => store.state.id, newId => {
-      id.value = newId
-      title.value = store.state.title
-      userId.value = store.state.composer
-    })
+    store.watch(
+      () => store.state.id,
+      (newId) => {
+        id.value = newId
+        title.value = store.state.title
+        userId.value = store.state.composer
+      }
+    )
     return {
       musicId: id,
       title,

@@ -105,24 +105,29 @@ export default defineComponent({
         },
       })
     )
-    watch(() => props.id, (id: string) => {
-      nowPos.value = 0
-      audio.value.broke()
-      const flag = audio.value.isLoop
-      audio.value = ref(createAudioElement(id, {
-        ended: () => {
-          console.log('end !!')
-        },
-        timeUpdate: (time: number) => {
-          nowPos.value = time
+    watch(
+      () => props.id,
+      (id: string) => {
+        nowPos.value = 0
+        audio.value.broke()
+        const flag = audio.value.isLoop
+        audio.value = ref(
+          createAudioElement(id, {
+            ended: () => {
+              console.log('end !!')
+            },
+            timeUpdate: (time: number) => {
+              nowPos.value = time
+            },
+          })
+        ).value
+        audio.value.setVolume(nowVol.value)
+        if (audio.value.isLoop !== flag) {
+          audio.value.toggleLoop()
         }
-      })).value
-      audio.value.setVolume(nowVol.value)
-      if (audio.value.isLoop !== flag) {
-        audio.value.toggleLoop()
+        audio.value.play()
       }
-      audio.value.play()
-    })
+    )
     const nowVol = ref(audio.value.volume)
     const musicLength = computed(() => {
       return Math.ceil(audio.value.maxTime)
