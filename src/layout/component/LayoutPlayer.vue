@@ -10,9 +10,11 @@
           />
         </router-link>
         <div class="info-container">
-          <div class="sound-title">
-            {{ audio.title }}
-          </div>
+          <el-tooltip :content="audio.title" placement="top" :show-after="300">
+            <div class="sound-title">
+              {{ audio.title }}
+            </div>
+          </el-tooltip>
           <router-link :to="composersLink">
             <div class="sound-composer">
               {{ audio.userId }}
