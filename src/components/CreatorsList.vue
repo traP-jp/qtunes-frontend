@@ -54,5 +54,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scopped>
-</style>
+<style lang="scss" scopped></style>
