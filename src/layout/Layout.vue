@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container class="layout-container">
-      <layout-header />
+      <LayoutHeader />
       <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
         <el-aside class="aside-content">
