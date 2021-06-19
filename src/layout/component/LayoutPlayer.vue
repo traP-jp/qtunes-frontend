@@ -99,9 +99,14 @@ export default defineComponent({
     const store = useStore()
     const nowPos = ref(0)
     const audio = ref(
-      createAudioElement('', {
-        ended: () => {
-          console.log('end!')
+      createAudioElement(props.id, {
+        ended: async () => {
+          const { data } = await api.getFileRandom()
+          store.dispatch('chgAudio', {
+            id: data.id,
+            title: data.title,
+            composer: data.composer_name,
+          })
         },
         timeUpdate: (time: number) => {
           nowPos.value = time
@@ -111,6 +116,7 @@ export default defineComponent({
     watch(
       () => props.id,
       (id: string) => {
+        console.log(`id: ${id}`)
         nowPos.value = 0
         audio.value.broke()
         const flag = audio.value.isLoop
