@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { api } from './api'
 
 interface AudioElementOptions {
   ended: () => void
@@ -6,7 +7,7 @@ interface AudioElementOptions {
 }
 
 const createAudioElement = (id: string, options: AudioElementOptions) => {
-  const nowAudio = ref(new Audio('http://www.hmix.net/music/n/n148.mp3')) // TODO: api
+  const nowAudio = ref(new Audio(api.downloadFileLink(id)))
 
   nowAudio.value.load()
 
@@ -42,35 +43,28 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     nowAudio.value.currentTime = nxtTime
   }
 
-  nowAudio.value.addEventListener('timeupdate', (_event) => {
+  const timeUpdateHandler = (_event: Event) => {
     options.timeUpdate(nowAudio.value.currentTime)
-  })
-  nowAudio.value.addEventListener('ended', (_event) => {
+  }
+  const endedHandler = (_event: Event) => {
     if (isLoop.value) {
       setTime(0)
       play()
       return
     }
     options.ended()
-  })
+  }
+
+  nowAudio.value.addEventListener('timeupdate', timeUpdateHandler)
+  nowAudio.value.addEventListener('ended', endedHandler)
 
   const broke = () => {
     nowAudio.value.pause()
     nowAudio.value.removeEventListener('durationchange', (_event) => {
       maxTime.value = nowAudio.value.duration
     })
-    nowAudio.value.removeEventListener('timeupdate', (_event) => {
-      options.timeUpdate(nowAudio.value.currentTime)
-    })
-    nowAudio.value.removeEventListener('ended', (_event) => {
-      console.log('end')
-      if (isLoop.value) {
-        setTime(0)
-        play()
-        return
-      }
-      options.ended()
-    })
+    nowAudio.value.removeEventListener('timeupdate', timeUpdateHandler)
+    nowAudio.value.removeEventListener('ended', endedHandler)
   }
 
   return {
