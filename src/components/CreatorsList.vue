@@ -1,11 +1,9 @@
 <template>
-  <el-scrollbar>
-    <CreatorElement
-      v-for="creator in creators"
-      :key="creator"
-      :traq-id="creator"
-    />
-  </el-scrollbar>
+  <CreatorElement
+    v-for="creator in creators"
+    :key="creator"
+    :traq-id="creator"
+  />
 </template>
 
 <script lang="ts">
