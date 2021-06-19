@@ -19,7 +19,7 @@
         <MenuIcon
           message="User"
           icon="el-icon-user-solid"
-          route="user"
+          route="users"
           :index="3"
         />
       </el-menu>
