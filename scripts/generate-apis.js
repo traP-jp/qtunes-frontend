@@ -1,6 +1,8 @@
-// https://git.trap.jp/hackason20_winter_2/CustomTheme-Client/src/branch/master/scripts/generate-apis.js
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
+
+// https://github.com/traPtitech/booQ-UI/blob/master/scripts/generate-apis.js
+
 const fs = require('fs').promises
 const path = require('path')
 const { exec } = require('child_process')
@@ -9,7 +11,7 @@ const execPromise = promisify(exec)
 const addApis = require('./add-apis')
 
 const SWAGGER_PATH =
-  'http://main.back-end.hackathon21_spring_02.trap.show/openapi/swagger.yaml' // TODO: cname ついたら変える
+  'https://raw.githubusercontent.com/hackathon-21-spring-02/back-end/main/docs/swagger/swagger.yaml' // TODO: cname ついたら変える
 const GENERATED_DIR = 'src/lib/apis/generated'
 
 const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx'
