@@ -35,27 +35,27 @@ const router = createRouter({
   history: routerHistory,
 })
 
-router.beforeEach(async (to, _, next) => {
-  if (to.name === 'callback') {
-    next()
-    return
-  }
-  let me = sessionStorage.getItem('me')
-  if (me === null || me === '') {
-    try {
-      const { data } = await api.getMe()
-      me = data.name
-    } catch (err) {
-      const e: AxiosError = err
-      console.error(e)
-    }
-  }
-  if (me === null || me === '') {
-    sessionStorage.setItem('destination', to.fullPath)
-    redirect2AuthEndpoint()
-  }
+// router.beforeEach(async (to, _, next) => {
+//   if (to.name === 'callback') {
+//     next()
+//     return
+//   }
+//   let me = sessionStorage.getItem('me')
+//   if (me === null || me === '') {
+//     try {
+//       const { data } = await api.getMe()
+//       me = data.name
+//     } catch (err) {
+//       const e: AxiosError = err
+//       console.error(e)
+//     }
+//   }
+//   if (me === null || me === '') {
+//     sessionStorage.setItem('destination', to.fullPath)
+//     redirect2AuthEndpoint()
+//   }
 
-  next()
-})
+//   next()
+// })
 
 export default router

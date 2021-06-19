@@ -2,14 +2,14 @@
   <el-card
     shadow="never"
     class="creator-element-card"
-    :body-style="{ padding: '5px 5px 5px 5px' }"
+    :body-style="{ padding: '12px' }"
   >
-    <el-row :gutter="5">
-      <el-col :span="4">
+    <el-row :gutter="6">
+      <el-col :span="6">
         <img
           :src="`https://q.trap.jp/api/1.0/public/icon/${traqId}`"
-          width="30"
-          height="30"
+          width="48"
+          height="48"
           :style="{ 'padding-top': '7px' }"
         />
       </el-col>
@@ -40,8 +40,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .traqid-text {
   text-align: left;
-  line-height: 44px;
-  max-width: 200px;
+  line-height: 59px;
+  max-width: 180px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

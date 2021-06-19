@@ -4,6 +4,7 @@
       v-for="creator in creators"
       :key="creator"
       :traq-id="creator"
+      class="creator-element"
     />
   </el-scrollbar>
 </template>
@@ -55,4 +56,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scopped></style>
+<style lang="scss" scopped>
+.creator-element {
+  margin: 0px 12px;
+}
+</style>
