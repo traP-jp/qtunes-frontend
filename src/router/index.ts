@@ -31,7 +31,7 @@ const routes: RouteRecordRaw[] = [
 ]
 
 // const routerHistory = createWebHistory(process.env.BASE_PATH)v
-const routerHistory = createWebHistory('/back-end/')
+const routerHistory = createWebHistory('/')
 const router = createRouter({
   routes,
   history: routerHistory,

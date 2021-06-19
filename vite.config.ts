@@ -16,6 +16,6 @@ export default defineConfig({
       },
     },
   },
-  base: '/back-end/',
+  base: '/',
   plugins: [vue()],
 })
