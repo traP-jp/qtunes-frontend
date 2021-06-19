@@ -7,7 +7,9 @@
           width="40"
         />
       </el-col>
-      <el-col :span="80" class="traqid_text">@{{ traqId }} </el-col>
+      <el-tooltip placement="top" :content="`@${traqId}`" :show-after="100">
+        <el-col :span="80" class="traqid_text">@{{ traqId }} </el-col>
+      </el-tooltip>
     </el-row>
   </el-card>
 </template>
