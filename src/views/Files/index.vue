@@ -36,7 +36,7 @@
           <file-element
             :title="file.title"
             :user-id="file.composer_name"
-            :music-id="file.id"
+            :audio-id="file.id"
             :is-fav="file.is_favorite_by_me"
             @toggleFav="toggleFav(idx, $event)"
           />
