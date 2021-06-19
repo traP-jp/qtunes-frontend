@@ -12,7 +12,12 @@
         </el-main>
       </el-container>
       <el-footer class="fixed-footer" height="auto">
-        <LayoutPlayer :id="musicId" :user-id="userId" :title="title" />
+        <LayoutPlayer
+          v-if="musicId.length > 0"
+          :id="musicId"
+          :user-id="userId"
+          :title="title"
+        />
       </el-footer>
       <!-- <el-footer>footer</el-footer> -->
     </el-container>
