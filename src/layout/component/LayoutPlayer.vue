@@ -113,6 +113,7 @@ export default defineComponent({
         },
       })
     )
+    audio.value.play()
     watch(
       () => props.id,
       (id: string) => {
@@ -165,6 +166,9 @@ export default defineComponent({
       const ceilVal = Math.ceil(val)
       const minute = (ceilVal / 60) | 0
       const second = ceilVal % 60
+      if (Number.isNaN(minute) || Number.isNaN(second)) {
+        return '-'
+      }
       return `${minute}:${('00' + second).slice(-2)}`
     }
 
