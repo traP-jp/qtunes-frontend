@@ -41,8 +41,8 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
   const time = ref(nowAudio.value.currentTime)
   const setTime = (nxtTime: number) => {
     console.log(`nxtTime = ${nxtTime}`)
-    time.value = nxtTime
     nowAudio.value.currentTime = nxtTime
+    time.value = nxtTime
     console.log(`afterTime = ${nowAudio.value.currentTime}`)
   }
 
