@@ -2,19 +2,19 @@
   <el-card
     shadow="never"
     class="creator-element-card"
-    :body-style="{ padding: '12px' }"
+    :body-style="{ padding: '0' }"
   >
-    <el-row :gutter="6">
-      <el-col :span="6">
+    <el-row class="row-style">
+      <div>
         <img
           :src="`https://q.trap.jp/api/1.0/public/icon/${traqId}`"
           width="48"
           height="48"
-          :style="{ 'padding-top': '7px' }"
+          class="creator-icon"
         />
-      </el-col>
+      </div>
       <el-tooltip placement="right" :content="`@${traqId}`" :show-after="100">
-        <el-col :span="20" class="traqid-text">@{{ traqId }} </el-col>
+        <div class="traqid-text">{{ traqId }}</div>
       </el-tooltip>
     </el-row>
   </el-card>
@@ -40,15 +40,23 @@ export default defineComponent({
 <style lang="scss" scoped>
 .traqid-text {
   text-align: left;
-  line-height: 59px;
-  max-width: 180px;
+  line-height: 48px;
+  max-width: 170px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .creator-element-card {
+  padding: 12px;
   cursor: pointer !important;
   :hover {
     color: #409eff;
+  }
+  .row-style {
+    height: 48px;
+  }
+  .creator-icon {
+    border-radius: 50%;
+    padding: 0 12px;
   }
 }
 </style>
