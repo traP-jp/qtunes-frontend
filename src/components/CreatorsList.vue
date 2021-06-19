@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <el-scrollbar height="84.5vh">
+=======
+  <el-scrollbar>
+>>>>>>> 454203c... fix scrollbar
     <CreatorElement
       v-for="creator in creators"
       :key="creator"

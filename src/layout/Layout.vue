@@ -5,9 +5,13 @@
       <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
         <el-aside class="aside-content">
+<<<<<<< HEAD
           <div>
             <CreatorsList />
           </div>
+=======
+          <CreatorsList />
+>>>>>>> 454203c... fix scrollbar
         </el-aside>
         <el-main class="main-content">
           <slot />
@@ -43,5 +47,19 @@ export default defineComponent({
   .main-content {
     background-color: #ee9;
   }
+<<<<<<< HEAD
+=======
+  .aside-content {
+    height: calc(100vh - 138px);
+  }
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  // height: auto;
+  width: 100vw;
+  background-color: white;
+>>>>>>> 454203c... fix scrollbar
 }
 </style>
