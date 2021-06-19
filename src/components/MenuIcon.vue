@@ -1,7 +1,16 @@
 <template>
-  <el-tooltip effect="dark" placement="bottom" :content="`${msg}`">
-    <i :class="`${icon}`" />
-  </el-tooltip>
+  <el-menu-item :index="`${ind}`">
+    <a :href="`${link}`">
+      <el-tooltip
+        effect="dark"
+        placement="bottom"
+        :content="`${msg}`"
+        :show-after="100"
+      >
+        <i :class="`${icon}`" />
+      </el-tooltip>
+    </a>
+  </el-menu-item>
 </template>
 
 <script lang="ts">
@@ -16,6 +25,14 @@ export default defineComponent({
     },
     icon: {
       type: String,
+      required: true,
+    },
+    link: {
+      type: String,
+      required: true,
+    },
+    ind: {
+      type: Number,
       required: true,
     },
   },

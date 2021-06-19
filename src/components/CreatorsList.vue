@@ -18,6 +18,7 @@ export default defineComponent({
     CreatorElement,
   },
   setup() {
+    //TODO: apiを叩く
     const creators: String[] = [
       'itt',
       'SSlime',

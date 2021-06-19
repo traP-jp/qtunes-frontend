@@ -1,29 +1,24 @@
 <template>
   <el-header class="header-container">
     <div class="left-content">
-      <el-row gutter="10">
-        <el-col span="20" class="logo">
-          <img src="../../assets/logo.png" width="40" />
+      <el-row>
+        <el-col :span="5" class="logo">
+          <img src="../../assets/logo.png" :width="40" />
         </el-col>
-        <el-col span="20"> PRODUCT NAME </el-col>
+        <el-col :span="60"> PRODUCT NAME </el-col>
       </el-row>
     </div>
+    <!-- TODO: link修正 -->
     <div class="right-content">
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-      >
-        <el-menu-item index="1">
-          <menu-icon msg="index 1" icon="el-icon-eleme" />
-        </el-menu-item>
-        <el-menu-item index="2">
-          <menu-icon msg="index 2" icon="el-icon-eleme" />
-        </el-menu-item>
-        <el-menu-item index="3">
-          <menu-icon msg="index 3" icon="el-icon-eleme" />
-        </el-menu-item>
+      <el-menu mode="horizontal" :default-active="activePath()">
+        <MenuIcon msg="index 1" icon="el-icon-eleme" link="/" :ind="1" />
+        <MenuIcon
+          msg="index 2"
+          icon="el-icon-eleme"
+          link="/files/favorite"
+          :ind="2"
+        />
+        <MenuIcon msg="index 3" icon="el-icon-eleme" link="/user" :ind="3" />
       </el-menu>
     </div>
   </el-header>
@@ -39,11 +34,12 @@ export default defineComponent({
     MenuIcon,
   },
   setup() {
-    const activeIndex = 1
-    const handleSelect = () => {}
+    const activePath = (): String => {
+      //TODO: pathに応じたindexを返すようにする
+      return '2'
+    }
     return {
-      activeIndex,
-      handleSelect,
+      activePath,
     }
   },
 })
