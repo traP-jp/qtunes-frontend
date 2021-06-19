@@ -41,8 +41,6 @@ export default defineComponent({
   .main-content {
     background-color: #ee9;
   }
-<<<<<<< HEAD
-=======
   .aside-content {
     height: calc(100vh - 138px);
   }
@@ -54,6 +52,5 @@ export default defineComponent({
   // height: auto;
   width: 100vw;
   background-color: white;
->>>>>>> 454203c... fix scrollbar
 }
 </style>
