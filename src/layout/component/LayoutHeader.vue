@@ -6,17 +6,12 @@
         PRODUCT NAME
       </el-row>
     </div>
-    <!-- TODO: link修正 -->
+    <!-- TODO: link, icon msg修正 -->
     <div class="right-content">
       <el-menu mode="horizontal" :default-active="activePath()">
-        <MenuIcon msg="index 1" icon="el-icon-eleme" link="/" :ind="1" />
-        <MenuIcon
-          msg="index 2"
-          icon="el-icon-eleme"
-          link="/files/favorite"
-          :ind="2"
-        />
-        <MenuIcon msg="index 3" icon="el-icon-eleme" link="/user" :ind="3" />
+        <MenuIcon msg="Home" icon="el-icon-s-home" link="/" :ind="1" />
+        <MenuIcon msg="Favorite" icon="el-icon-folder" link="/files" :ind="2" />
+        <MenuIcon msg="User" icon="el-icon-user-solid" link="/user" :ind="3" />
       </el-menu>
     </div>
   </el-header>

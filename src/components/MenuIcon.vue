@@ -1,5 +1,5 @@
 <template>
-  <el-menu-item :index="`${ind}`" :route="`${link}`">
+  <el-menu-item :index="`${ind}`" router="true" :route="`${link}`">
     <el-tooltip
       effect="dark"
       placement="bottom"
