@@ -1,9 +1,9 @@
 <template>
-  <el-menu-item :index="`${ind}`" :route="`{name: ${routeName}`">
+  <el-menu-item :index="`${index}`" :route="`{name: ${routeName}`">
     <el-tooltip
       effect="dark"
       placement="bottom"
-      :content="`${msg}`"
+      :content="`${message}`"
       :show-after="100"
     >
       <i :class="`${icon}`" />
@@ -17,7 +17,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'MenuIcon',
   props: {
-    msg: {
+    message: {
       type: String,
       required: true,
     },
@@ -29,7 +29,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    ind: {
+    index: {
       type: Number,
       required: true,
     },
