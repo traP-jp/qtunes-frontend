@@ -11,23 +11,59 @@
           <slot />
         </el-main>
       </el-container>
-      <el-footer>footer</el-footer>
+      <el-footer class="fixed-footer" height="auto">
+        <LayoutPlayer
+          v-if="musicId.length > 0"
+          :id="musicId"
+          :user-id="userId"
+          :title="title"
+        />
+      </el-footer>
+      <!-- <el-footer>footer</el-footer> -->
     </el-container>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import CreatorsList from '../components/CreatorsList.vue'
+import { useStore } from '../main'
 import LayoutHeader from './component/LayoutHeader.vue'
+import LayoutPlayer from './component/LayoutPlayer.vue'
 
 export default defineComponent({
   name: 'Layout',
   components: {
     CreatorsList,
     LayoutHeader,
+    LayoutPlayer,
   },
-  setup() {},
+  setup() {
+    const store = useStore()
+    const id = ref(store.state.id)
+    const title = ref(store.state.title)
+    const userId = ref(store.state.composer)
+    store.watch(
+      () => ({
+        id: store.state.id,
+        title: store.state.title,
+        userId: store.state.composer,
+      }),
+      async ({ id: newId, title: newTitle, userId: newUserId }) => {
+        id.value = newId
+        title.value = newTitle
+        userId.value = newUserId
+      },
+      {
+        deep: true,
+      }
+    )
+    return {
+      musicId: id,
+      title,
+      userId,
+    }
+  },
 })
 </script>
 
@@ -44,5 +80,13 @@ export default defineComponent({
   .aside-content {
     height: calc(100vh - 138px);
   }
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  // height: auto;
+  width: 100vw;
+  background-color: white;
 }
 </style>

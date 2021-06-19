@@ -29,19 +29,23 @@ export class Apis {
   }
 
   getComposerFiles(id: string): AxiosPromise<ModelFile[]> {
-    return axios.get(`/api/${id}`)
+    return axios.get(`/api/composers/${id}/files`)
   }
 
   getFiles(): AxiosPromise<ModelFile[]> {
     return axios.get('/api/files')
   }
 
+  getFileRandom(): AxiosPromise<ModelFile> {
+    return axios.get('/api/files/random')
+  }
+
   getFile(id: string): AxiosPromise<ModelFile> {
-    return axios.get(`/api/${id}`)
+    return axios.get(`/api/files/${id}`)
   }
 
   putFileFavorite(id: string, favorite: boolean): AxiosPromise<void> {
-    return axios.put(`/api/${id}/favorite`, {
+    return axios.put(`/api/files/${id}/favorite`, {
       favorite,
     })
   }
