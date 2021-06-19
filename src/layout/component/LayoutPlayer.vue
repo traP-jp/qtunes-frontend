@@ -76,6 +76,8 @@
 import { computed, defineComponent, watch } from 'vue'
 import createAudioElement from '../../utils/audio'
 import { ref } from 'vue'
+import { api } from '../../utils/api'
+import { useStore } from '../../main'
 
 export default defineComponent({
   name: 'LayoutPlayer',
@@ -94,6 +96,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const store = useStore()
     const nowPos = ref(0)
     const audio = ref(
       createAudioElement('', {
@@ -113,8 +116,13 @@ export default defineComponent({
         const flag = audio.value.isLoop
         audio.value = ref(
           createAudioElement(id, {
-            ended: () => {
-              console.log('end !!')
+            ended: async () => {
+              const { data } = await api.getFileRandom()
+              store.dispatch('chgAudio', {
+                id: data.id,
+                title: data.title,
+                composer: data.composer_name,
+              })
             },
             timeUpdate: (time: number) => {
               nowPos.value = time
@@ -158,7 +166,7 @@ export default defineComponent({
       isPlayed.value ? audio.value.pause() : audio.value.play()
     }
 
-    const composersLink = `/files/${props.userId}`
+    const composersLink = `/users/${props.userId}`
 
     return {
       audio,
