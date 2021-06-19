@@ -11,7 +11,7 @@
         <i class="el-icon-sort title-icon" />
         Latest track
       </div>
-      <file-element
+      <FileElement
         :key="files[0].id"
         :title="files[0].title"
         :user-id="files[0].composer_name"
@@ -33,7 +33,7 @@
           :span="24"
           class="file-element-col"
         >
-          <file-element
+          <FileElement
             :title="file.title"
             :user-id="file.composer_name"
             :music-id="file.id"
