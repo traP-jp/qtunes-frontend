@@ -5,9 +5,6 @@ work_dir: ./dist
 branch:
   main:
     startup: |
-      npm i -g npm n
-      n 16.3.0
-      PATH="$PATH"
       npm ci
       npm run build
     envs: {
