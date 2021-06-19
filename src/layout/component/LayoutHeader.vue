@@ -11,7 +11,7 @@
       <el-menu mode="horizontal" default-active="1" router>
         <MenuIcon msg="Home" icon="el-icon-s-home" route="top" :ind="1" />
         <MenuIcon msg="Files" icon="el-icon-folder" route="files" :ind="2" />
-        <MenuIcon msg="User" icon="el-icon-user-solid" route="user" :ind="3" />
+        <MenuIcon msg="User" icon="el-icon-user-solid" route="users" :ind="3" />
       </el-menu>
     </div>
   </el-header>
