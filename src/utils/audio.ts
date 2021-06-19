@@ -38,11 +38,9 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     maxTime.value = nowAudio.value.duration
   })
 
-  const time = ref(nowAudio.value.currentTime)
   const setTime = (nxtTime: number) => {
     console.log(`nxtTime = ${nxtTime}`)
     nowAudio.value.currentTime = nxtTime
-    time.value = nxtTime
     console.log(`afterTime = ${nowAudio.value.currentTime}`)
   }
 
@@ -78,7 +76,6 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     isLoop,
     setVolume,
     setTime,
-    time,
     maxTime,
     volume,
     broke,
