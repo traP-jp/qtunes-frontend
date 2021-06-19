@@ -1,5 +1,5 @@
 <template>
-  <el-menu-item :index="`${ind}`" router="true" :route="`${link}`">
+  <el-menu-item :index="`${ind}`" :route="`{name: ${routeName}`">
     <el-tooltip
       effect="dark"
       placement="bottom"
@@ -25,7 +25,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    link: {
+    routeName: {
       type: String,
       required: true,
     },
