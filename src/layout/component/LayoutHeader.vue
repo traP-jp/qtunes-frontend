@@ -9,7 +9,7 @@
     <!-- TODO: link, icon msg修正 -->
     <div class="right-content">
       <el-menu mode="horizontal" default-active="1" router>
-        <MenuIcon message="Home" icon="el-icon-s-home" route="top" :index="1" />
+        <MenuIcon message="Home" icon="el-icon-s-home" route="" :index="1" />
         <MenuIcon
           message="Files"
           icon="el-icon-folder"
