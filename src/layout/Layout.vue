@@ -5,11 +5,7 @@
       <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
         <el-aside class="aside-content">
-          <div>
-            <el-scrollbar class="scrollbar">
-              <CreatorsList />
-            </el-scrollbar>
-          </div>
+          <CreatorsList />
         </el-aside>
         <el-main class="main-content">
           <slot />
@@ -46,11 +42,7 @@ export default defineComponent({
     background-color: #ee9;
   }
   .aside-content {
-    height: 100vh;
-    overflow: auto;
-    .scrollbar {
-      height: 100%;
-    }
+    height: calc(100vh - 138px);
   }
 }
 </style>
