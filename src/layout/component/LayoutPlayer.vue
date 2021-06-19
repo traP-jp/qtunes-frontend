@@ -113,6 +113,7 @@ export default defineComponent({
         },
       })
     )
+    audio.value.play()
     watch(
       () => props.id,
       (id: string) => {

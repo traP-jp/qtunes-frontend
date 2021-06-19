@@ -26,10 +26,10 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     isLoop.value = !isLoop.value
   }
 
-  const volume = ref(Math.floor(nowAudio.value.volume) * 100)
+  const volume = ref(Math.floor(Math.max(nowAudio.value.volume, 0.3) * 100))
   const setVolume = (nxtVolume: number) => {
     volume.value = nxtVolume
-    nowAudio.value.volume = nxtVolume / 100
+    nowAudio.value.volume = (nxtVolume / 100) * 0.3
   }
 
   const maxTime = ref(nowAudio.value.duration)
