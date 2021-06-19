@@ -8,10 +8,10 @@
     </div>
     <!-- TODO: link, icon msg修正 -->
     <div class="right-content">
-      <el-menu mode="horizontal" :default-active="activePath()">
-        <MenuIcon msg="Home" icon="el-icon-s-home" link="/" :ind="1" />
-        <MenuIcon msg="Favorite" icon="el-icon-folder" link="/files" :ind="2" />
-        <MenuIcon msg="User" icon="el-icon-user-solid" link="/user" :ind="3" />
+      <el-menu mode="horizontal" default-active="1" router>
+        <MenuIcon msg="Home" icon="el-icon-s-home" route="top" :ind="1" />
+        <MenuIcon msg="Files" icon="el-icon-folder" route="files" :ind="2" />
+        <MenuIcon msg="User" icon="el-icon-user-solid" route="user" :ind="3" />
       </el-menu>
     </div>
   </el-header>
@@ -26,15 +26,7 @@ export default defineComponent({
   components: {
     MenuIcon,
   },
-  setup() {
-    const activePath = (): String => {
-      //TODO: pathに応じたindexを返すようにする
-      return '2'
-    }
-    return {
-      activePath,
-    }
-  },
+  setup() {},
 })
 </script>
 
