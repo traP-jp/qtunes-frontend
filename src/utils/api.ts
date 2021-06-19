@@ -29,7 +29,7 @@ export class Apis {
   }
 
   getComposerByName(name: string): AxiosPromise<Composer> {
-    return axios.get(`/api/composer/name/${name}`)
+    return axios.get(`/api/composers/name/${name}`)
   }
 
   getComposerFiles(id: string): AxiosPromise<ModelFile[]> {
