@@ -39,11 +39,18 @@ export default defineComponent({
     const title = ref(store.state.title)
     const userId = ref(store.state.composer)
     store.watch(
-      () => store.state.id,
-      (newId) => {
+      () => ({
+        id: store.state.id,
+        title: store.state.title,
+        userId: store.state.composer,
+      }),
+      async ({ id: newId, title: newTitle, userId: newUserId }) => {
         id.value = newId
-        title.value = store.state.title
-        userId.value = store.state.composer
+        title.value = newTitle
+        userId.value = newUserId
+      },
+      {
+        deep: true,
       }
     )
     return {
