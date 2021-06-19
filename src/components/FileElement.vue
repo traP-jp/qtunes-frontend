@@ -129,10 +129,12 @@ export default defineComponent({
       text-overflow: ellipsis;
     }
     .sound-title {
-      font-size: 1.2rem;
+      font-size: 16px;
+      line-height: 20px;
     }
     .sound-composer {
-      font-size: 0.8rem;
+      font-size: 12px;
+      line-height: 16px;
       color: #909399;
       text-decoration-line: none;
     }
