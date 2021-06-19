@@ -5,13 +5,7 @@
       <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
         <el-aside class="aside-content">
-<<<<<<< HEAD
-          <div>
-            <CreatorsList />
-          </div>
-=======
           <CreatorsList />
->>>>>>> 454203c... fix scrollbar
         </el-aside>
         <el-main class="main-content">
           <slot />
