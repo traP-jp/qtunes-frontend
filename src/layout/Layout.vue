@@ -4,11 +4,8 @@
       <LayoutHeader />
       <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
-        <el-aside>
-          <div>aside</div>
-          <div>
-            <CreatorsList />
-          </div>
+        <el-aside class="aside-content">
+          <CreatorsList />
         </el-aside>
         <el-main class="main-content">
           <slot />
@@ -67,6 +64,9 @@ export default defineComponent({
   }
   .main-content {
     background-color: #ee9;
+  }
+  .aside-content {
+    height: calc(100vh - 138px);
   }
 }
 

@@ -1,9 +1,11 @@
 <template>
-  <CreatorElement
-    v-for="creator in creators"
-    :key="creator"
-    :traq-id="creator"
-  />
+  <el-scrollbar>
+    <CreatorElement
+      v-for="creator in creators"
+      :key="creator"
+      :traq-id="creator"
+    />
+  </el-scrollbar>
 </template>
 
 <script lang="ts">
@@ -16,10 +18,32 @@ export default defineComponent({
     CreatorElement,
   },
   setup() {
+    //TODO: apiを叩く
     const creators: String[] = [
       'itt',
       'SSlime',
       'xxarupakaxx',
+      'Ras',
+      'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
+      'Ras',
+      'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
+      'Ras',
+      'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
+      'Ras',
+      'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
+      'Ras',
+      'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
+      'Ras',
+      'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
+      'Ras',
+      'kounosuke',
+      'takku_bobshiroshiro_titech_trap',
       'Ras',
       'kounosuke',
       'takku_bobshiroshiro_titech_trap',
@@ -30,3 +54,5 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scopped></style>
