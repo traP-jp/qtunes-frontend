@@ -17,7 +17,7 @@
           </el-tooltip>
           <router-link :to="`/users/${userId}`">
             <div class="sound-composer">
-              {{ userId }}
+              {{ createdAt.length === 0 ? userId : createdAt }}
             </div>
           </router-link>
         </div>
@@ -66,6 +66,10 @@ export default defineComponent({
     isFav: {
       type: Boolean,
       required: true,
+    },
+    createdAt: {
+      type: String,
+      default: '',
     },
   },
   emits: {
