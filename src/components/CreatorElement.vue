@@ -13,7 +13,7 @@
           :style="{ 'padding-top': '7px' }"
         />
       </el-col>
-      <el-tooltip placement="top" :content="`@${traqId}`" :show-after="100">
+      <el-tooltip placement="right" :content="`@${traqId}`" :show-after="100">
         <el-col :span="20" class="traqid-text">@{{ traqId }} </el-col>
       </el-tooltip>
     </el-row>
