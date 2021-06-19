@@ -9,9 +9,19 @@
     <!-- TODO: link, icon msg修正 -->
     <div class="right-content">
       <el-menu mode="horizontal" default-active="1" router>
-        <MenuIcon msg="Home" icon="el-icon-s-home" route="top" :ind="1" />
-        <MenuIcon msg="Files" icon="el-icon-folder" route="files" :ind="2" />
-        <MenuIcon msg="User" icon="el-icon-user-solid" route="user" :ind="3" />
+        <MenuIcon message="Home" icon="el-icon-s-home" route="top" :index="1" />
+        <MenuIcon
+          message="Files"
+          icon="el-icon-folder"
+          route="files"
+          :index="2"
+        />
+        <MenuIcon
+          message="User"
+          icon="el-icon-user-solid"
+          route="user"
+          :index="3"
+        />
       </el-menu>
     </div>
   </el-header>
