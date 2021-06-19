@@ -2,10 +2,8 @@
   <el-header class="header-container">
     <div class="left-content">
       <el-row>
-        <el-col :span="5" class="logo">
-          <img src="../../assets/logo.png" :width="40" />
-        </el-col>
-        <el-col :span="60"> PRODUCT NAME </el-col>
+        <img src="../../assets/logo.png" :width="40" class="logo" />
+        PRODUCT NAME
       </el-row>
     </div>
     <!-- TODO: link修正 -->
@@ -55,7 +53,6 @@ export default defineComponent({
     display: inline-block;
     .logo {
       padding: 10px;
-      height: 60px;
       line-height: 60px;
     }
   }
