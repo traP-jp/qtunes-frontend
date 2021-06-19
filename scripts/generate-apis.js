@@ -11,7 +11,7 @@ const execPromise = promisify(exec)
 const addApis = require('./add-apis')
 
 const SWAGGER_PATH =
-  'https://raw.githubusercontent.com/traPtitech/booQ/master/docs/swagger.yml'
+  'http://main.back-end.hackathon21_spring_02.trap.show/openapi/swagger.yaml'
 const GENERATED_DIR = 'src/lib/apis/generated'
 
 const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx'
