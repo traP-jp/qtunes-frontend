@@ -6,7 +6,9 @@
       <el-container>
         <el-aside class="aside-content">
           <div>
-            <CreatorsList />
+            <el-scrollbar class="scrollbar">
+              <CreatorsList />
+            </el-scrollbar>
           </div>
         </el-aside>
         <el-main class="main-content">
@@ -42,6 +44,13 @@ export default defineComponent({
   }
   .main-content {
     background-color: #ee9;
+  }
+  .aside-content {
+    height: 100vh;
+    overflow: auto;
+    .scrollbar {
+      height: 100%;
+    }
   }
 }
 </style>
