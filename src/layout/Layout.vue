@@ -74,9 +74,6 @@ export default defineComponent({
   .header-container {
     background-color: #eee;
   }
-  .main-content {
-    background-color: #ee9;
-  }
   .aside-content {
     height: calc(100vh - 138px);
   }
