@@ -1,15 +1,13 @@
 <template>
-  <el-menu-item :index="`${ind}`">
-    <a :href="`${link}`">
-      <el-tooltip
-        effect="dark"
-        placement="bottom"
-        :content="`${msg}`"
-        :show-after="100"
-      >
-        <i :class="`${icon}`" />
-      </el-tooltip>
-    </a>
+  <el-menu-item :index="`${ind}`" :route="`{name: ${routeName}`">
+    <el-tooltip
+      effect="dark"
+      placement="bottom"
+      :content="`${msg}`"
+      :show-after="100"
+    >
+      <i :class="`${icon}`" />
+    </el-tooltip>
   </el-menu-item>
 </template>
 
@@ -27,7 +25,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    link: {
+    routeName: {
       type: String,
       required: true,
     },
