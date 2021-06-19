@@ -1,11 +1,9 @@
 <template>
   <el-header class="header-container">
     <div class="left-content">
-      <el-row gutter="10">
-        <el-col span="20" class="logo">
-          <img src="../../assets/logo.png" width="40" />
-        </el-col>
-        <el-col span="20"> PRODUCT NAME </el-col>
+      <el-row>
+        <img src="../../assets/logo.png" :width="40" class="logo" />
+        PRODUCT NAME
       </el-row>
     </div>
     <div class="right-content">
@@ -59,7 +57,6 @@ export default defineComponent({
     display: inline-block;
     .logo {
       padding: 10px;
-      height: 60px;
       line-height: 60px;
     }
   }
