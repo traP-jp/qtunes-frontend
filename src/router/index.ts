@@ -20,7 +20,6 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: async (to, _, next) => {
       await api.callback(String(to.query.code))
       const destination = sessionStorage.getItem('destination')
-      console.log(destination)
       if (destination) {
         next(destination)
       } else {
@@ -30,7 +29,6 @@ const routes: RouteRecordRaw[] = [
   },
 ]
 
-// const routerHistory = createWebHistory(process.env.BASE_PATH)v
 const routerHistory = createWebHistory('/')
 const router = createRouter({
   routes,

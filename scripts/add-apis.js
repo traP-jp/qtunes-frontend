@@ -1,6 +1,8 @@
-// https://git.trap.jp/hackason20_winter_2/CustomTheme-Client/src/branch/master/scripts/add-apis.js
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
+
+// https://github.com/traPtitech/booQ-UI/blob/master/scripts/add-apis.js
+
 const { Project } = require('ts-morph')
 
 const generateBaseAPI = async (sourceFile) => {
