@@ -1,29 +1,28 @@
 <template>
   <div>This is Top</div>
   <router-link to="/files">to files</router-link>
-  <el-input v-model="id" />
-  <el-button @click="chgId">chg ID</el-button>
+  <el-button @click="chgId">chg file</el-button>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from '../../main'
+import { api } from '../../utils/api'
 
 export default defineComponent({
   name: 'Top',
   components: {},
   setup() {
     const store = useStore()
-    const id = ref('')
-    const chgId = () => {
+    const chgId = async () => {
+      const { data } = await api.getFileRandom()
       store.dispatch('chgAudio', {
-        id: id.value,
-        title: 'sample title',
-        composer: 'takku_bobshiroshiro_titech_trap',
+        id: data.id,
+        title: data.title,
+        composer: data.composer_name,
       })
     }
     return {
-      id,
       chgId,
     }
   },
