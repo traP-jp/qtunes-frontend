@@ -22,7 +22,22 @@
           </router-link>
         </div>
       </el-col>
-      <el-col :offset="2" :span="12" class="time-slider-container">
+      <el-col :span="2">
+        <el-button
+          :type="isFav ? 'warning' : 'default'"
+          class="big-icon-button"
+          plain
+          circle
+          @click="toggleFav"
+        >
+          <i
+            :class="`${
+              isFav ? 'el-icon-star-on' : 'el-icon-star-off'
+            } big-icon fav-icon`"
+          />
+        </el-button>
+      </el-col>
+      <el-col :offset="0" :span="12" class="time-slider-container">
         <el-row class="time-slider-with-msg">
           <el-col class="time-msg time-msg__left">{{
             formatPos(nowPos)
@@ -94,8 +109,17 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    isFav: {
+      type: Boolean,
+      required: true,
+    },
   },
-  setup(props) {
+  emits: {
+    toggleFav(_: boolean) {
+      return true
+    },
+  },
+  setup(props, { emit }) {
     const store = useStore()
     const nowPos = ref(0)
     const audio = ref(
@@ -106,6 +130,7 @@ export default defineComponent({
             id: data.id,
             title: data.title,
             composer: data.composer_name,
+            isFav: data.is_favorite_by_me,
           })
         },
         timeUpdate: (time: number) => {
@@ -117,7 +142,6 @@ export default defineComponent({
     watch(
       () => props.id,
       (id: string) => {
-        console.log(`id: ${id}`)
         nowPos.value = 0
         audio.value.broke()
         const flag = audio.value.isLoop
@@ -129,6 +153,7 @@ export default defineComponent({
                 id: data.id,
                 title: data.title,
                 composer: data.composer_name,
+                isFav: data.is_favorite_by_me,
               })
             },
             timeUpdate: (time: number) => {
@@ -175,6 +200,9 @@ export default defineComponent({
     const togglePlay = () => {
       isPlayed.value ? audio.value.pause() : audio.value.play()
     }
+    const toggleFav = () => {
+      emit('toggleFav', !props.isFav)
+    }
 
     const composersLink = `/users/${props.userId}`
 
@@ -189,6 +217,7 @@ export default defineComponent({
       togglePlay,
       formatPos,
       composersLink,
+      toggleFav,
     }
   },
 })
@@ -271,6 +300,34 @@ export default defineComponent({
       & > span > i {
         font-size: 1.5rem;
       }
+    }
+  }
+  .big-icon-button {
+    padding: 0 !important;
+    border: 0 !important;
+    min-height: 0 !important;
+    margin: {
+      top: auto;
+      bottom: auto;
+    }
+    & > span > i {
+      font-size: 1.5rem;
+    }
+  }
+  .big-icon-button {
+    &:hover.el-button--default,
+    &:focus.el-button--default {
+      .fav-icon {
+        color: #e6a23c !important;
+      }
+    }
+    &.el-button--warning {
+      background-color: transparent !important;
+    }
+    &:hover.el-button--warning,
+    &:focus.el-button--warning {
+      background-color: transparent !important;
+      color: #e6a23c !important;
     }
   }
   .volume-slider {
