@@ -20,6 +20,10 @@ export class Apis {
     return axios.get('/api/users/me')
   }
 
+  getMeFavorite(): AxiosPromise<ModelFile[]> {
+    return axios.get('/api/users/me/favorites')
+  }
+
   getComposers(): AxiosPromise<Composer[]> {
     return axios.get('/api/composers')
   }
