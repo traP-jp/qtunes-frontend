@@ -50,7 +50,7 @@ export default defineComponent({
     const route = useRoute()
     const activeIndex = ref(route.name)
     watch(
-      () => activeIndex.value !== undefined || route.name !== undefined,
+      () => route.name,
       () => {
         activeIndex.value = route.name
     })

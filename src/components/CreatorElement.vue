@@ -1,5 +1,9 @@
 <template>
-  <el-menu-item :style="{ 'padding-left': '0' }">
+  <el-menu-item
+    :style="{ 'padding-left': '0' }"
+    :index="index"
+    :route="{ name: 'user', params: { userId: traqId } }"
+  >
     <el-col>
       <img
         :src="`https://q.trap.jp/api/1.0/public/icon/${traqId}`"
@@ -23,6 +27,10 @@ export default defineComponent({
   name: 'CreatorElement',
   props: {
     traqId: {
+      type: String,
+      required: true,
+    },
+    index: {
       type: String,
       required: true,
     },
