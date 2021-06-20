@@ -17,7 +17,7 @@
           </el-tooltip>
           <router-link :to="`/users/${userId}`">
             <div class="sound-composer">
-              {{ createdAt.length === 0 ? userId : createdAt }}
+              {{ createdAt.length === 0 ? userId : formatedCreatedAt }}
             </div>
           </router-link>
         </div>
@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from '../main'
 
 export default defineComponent({
@@ -93,10 +93,17 @@ export default defineComponent({
     const openFileLink = () => {
       window.open(`https://q.trap.jp/files/${props.audioId}`)
     }
+    const formatedCreatedAt = computed(() => {
+      if (props.createdAt.length === 0) {
+        return ''
+      }
+      return props.createdAt.slice(0, 10)
+    })
     return {
       toggleFav,
       chgAudio,
       openFileLink,
+      formatedCreatedAt,
     }
   },
 })
