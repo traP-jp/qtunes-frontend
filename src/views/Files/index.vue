@@ -15,7 +15,7 @@
         :key="files[0].id"
         :title="files[0].title"
         :user-id="files[0].composer_name"
-        :music-id="files[0].id"
+        :audio-id="files[0].id"
         :is-fav="files[0].is_favorite_by_me"
         @toggleFav="toggleFav(0, $event)"
       />

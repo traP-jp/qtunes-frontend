@@ -50,7 +50,7 @@
                 <FileElement
                   :title="file.title"
                   :user-id="file.composer_name"
-                  :music-id="file.id"
+                  :audio-id="file.id"
                   :created-at="file.created_at"
                   :is-fav="file.is_favorite_by_me"
                   @toggleFav="toggleFav(idx, $event)"

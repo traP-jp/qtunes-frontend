@@ -45,7 +45,7 @@
               :key="userInfo.files[0].id"
               :title="userInfo.files[0].title"
               :user-id="userInfo.files[0].composer_name"
-              :music-id="userInfo.files[0].id"
+              :audio-id="userInfo.files[0].id"
               :created-at="userInfo.files[0].created_at"
               :is-fav="userInfo.files[0].is_favorite_by_me"
               @toggleFav="toggleFav(0, $event)"
@@ -67,7 +67,7 @@
                 <FileElement
                   :title="file.title"
                   :user-id="file.composer_name"
-                  :music-id="file.id"
+                  :audio-id="file.id"
                   :created-at="file.created_at"
                   :is-fav="file.is_favorite_by_me"
                   @toggleFav="toggleFav(idx, $event)"
