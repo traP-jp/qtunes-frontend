@@ -92,9 +92,6 @@ export default defineComponent({
 .layout-container {
   height: 100vh;
   width: 100vw;
-  .aside-content {
-    height: calc(100vh - 138px);
-  }
 }
 
 .fixed-footer {
