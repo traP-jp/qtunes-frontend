@@ -1,11 +1,12 @@
 <template>
   <el-scrollbar>
-    <CreatorElement
-      v-for="creator in creators"
-      :key="creator"
-      :traq-id="creator"
-      class="creator-element"
-    />
+    <el-menu>
+      <CreatorElement
+        v-for="creator in creators"
+        :key="creator"
+        :traq-id="creator"
+      />
+    </el-menu>
   </el-scrollbar>
 </template>
 
@@ -26,7 +27,7 @@ export default defineComponent({
       'xxarupakaxx',
       'Ras',
       'kounosuke',
-      'takku_bobshiroshiro_titech_trap',
+      'takku_bobshiroshiro_titech_traaaaaaaaaaaaaaaaaaap',
       'Ras',
       'kounosuke',
       'takku_bobshiroshiro_titech_trap',
@@ -56,8 +57,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scopped>
-.creator-element {
-  margin: 0px 12px;
-}
-</style>
+<style lang="scss" scopped></style>
