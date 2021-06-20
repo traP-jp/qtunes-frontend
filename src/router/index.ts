@@ -19,6 +19,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/User/index.vue'),
   },
   {
+    path: '/favorite',
+    name: 'favorite',
+    component: () => import('../views/Favorite/index.vue'),
+  },
+  {
     path: '/callback',
     name: 'callback',
     component: () => import('../views/Top/index.vue'),
