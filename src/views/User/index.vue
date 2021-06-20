@@ -82,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, Ref } from 'vue'
+import { ref, defineComponent, Ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import FileElement from '../../components/FileElement.vue'
 import { Composer, ModelFile } from '../../lib/apis/generated'
@@ -95,11 +95,11 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
-    const name = route.params.userId as string
+    const name = computed(() => route.params.userId as string)
     const userInfo: Ref<(Composer & { files: ModelFile[] }) | null> = ref(null)
     const fetchUserInfo = async () => {
       try {
-        const { data: info } = await api.getComposerByName(name)
+        const { data: info } = await api.getComposerByName(name.value)
         let files: ModelFile[] = []
         try {
           ;({ data: files } = await api.getComposerFiles(info.id))
@@ -114,6 +114,10 @@ export default defineComponent({
         console.error(err)
       }
     }
+    watch(
+      () => name.value,
+      () => fetchUserInfo()
+    )
     fetchUserInfo()
     const toggleFav = async (idx: number, value: boolean) => {
       if (userInfo.value === null) {
