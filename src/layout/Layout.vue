@@ -11,7 +11,7 @@
         </el-main>
       </el-container>
       <el-footer
-        :height="musicId.length > 0 ? '80px' : '0px'"
+        :height="musicId.length > 0? '80px' : '0px'"
         style="visibility: hidden"
       />
       <div
@@ -19,7 +19,13 @@
         class="el-footer fixed-footer"
         height="80px"
       >
-        <LayoutPlayer :id="musicId" :user-id="userId" :title="title" />
+        <LayoutPlayer
+          :id="musicId"
+          :user-id="userId"
+          :title="title"
+          :is-fav="isFav"
+          @toggleFav="toggleFav"
+        />
       </div>
     </el-container>
   </div>
@@ -29,6 +35,7 @@
 import { defineComponent, ref } from 'vue'
 import CreatorsList from '../components/CreatorsList.vue'
 import { useStore } from '../main'
+import { api } from '../utils/api'
 import LayoutHeader from './component/LayoutHeader.vue'
 import LayoutPlayer from './component/LayoutPlayer.vue'
 
@@ -44,6 +51,7 @@ export default defineComponent({
     const id = ref(store.state.id)
     const title = ref(store.state.title)
     const userId = ref(store.state.composer)
+    const isFav = ref(store.state.isFav)
     store.watch(
       () => ({
         id: store.state.id,
@@ -54,15 +62,27 @@ export default defineComponent({
         id.value = newId
         title.value = newTitle
         userId.value = newUserId
+        isFav.value = store.state.isFav
       },
       {
         deep: true,
       }
     )
+    const toggleFav = async (value: boolean) => {
+      try {
+        await api.putFileFavorite(id.value, value)
+        isFav.value = value
+        store.state.isFav = value
+      } catch (err) {
+        console.error(err)
+      }
+    }
     return {
       musicId: id,
       title,
       userId,
+      isFav,
+      toggleFav,
     }
   },
 })
