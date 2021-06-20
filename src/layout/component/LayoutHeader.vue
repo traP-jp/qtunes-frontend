@@ -1,34 +1,44 @@
 <template>
   <el-header class="header-container">
     <div class="left-content">
-      <el-row>
-        <img src="../../assets/logo.png" :width="40" class="logo" />
-        PRODUCT NAME
-      </el-row>
+      <img src="../../assets/icon.svg" :width="40" class="logo" />
+      <span class="title-content">Qtunes</span>
     </div>
-    <!-- TODO: link, icon msg修正 -->
-    <div class="right-content">
-      <el-menu mode="horizontal" default-active="1" router>
-        <MenuIcon message="Home" icon="el-icon-s-home" route="/" :index="1" />
+    <div class="menu-content">
+      <el-menu
+        :default-active="activeIndex"
+        mode="horizontal"
+        router
+        background-color="#e9e9eb"
+      >
         <MenuIcon
-          message="Files"
-          icon="el-icon-folder"
-          route="files"
-          :index="2"
+          message="Home"
+          index="top"
+          icon="el-icon-s-home"
+          route="top"
         />
         <MenuIcon
-          message="User"
-          icon="el-icon-user-solid"
-          route="users"
-          :index="3"
+          message="曲一覧"
+          index="files"
+          icon="el-icon-folder"
+          route="files"
+        />
+        <MenuIcon
+          message="お気に入り"
+          index="favorite"
+          icon="el-icon-star-on"
+          route="favorite"
         />
       </el-menu>
     </div>
+    <!-- <div class="right-content">
+    </div> -->
   </el-header>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import MenuIcon from '../../components/MenuIcon.vue'
 
 export default defineComponent({
@@ -36,7 +46,18 @@ export default defineComponent({
   components: {
     MenuIcon,
   },
-  setup() {},
+  setup() {
+    const route = useRoute()
+    const activeIndex = ref(route.name)
+    watch(
+      () => activeIndex.value !== undefined || route.name !== undefined,
+      () => {
+        activeIndex.value = route.name
+    })
+    return {
+      activeIndex,
+    }
+  },
 })
 </script>
 
@@ -45,13 +66,30 @@ export default defineComponent({
   display: flex;
   height: 60px;
   line-height: 60px;
+  background-color: #e9e9eb;
+  // vertical-align: middle;
   .left-content {
-    margin-right: auto;
-    display: inline-block;
+    // margin-right: auto;
+    // display: inline-block;
+    // vertical-align: bottom;
+    line-height: 60px;
     .logo {
       padding: 10px;
       line-height: 60px;
     }
+    .title-content {
+      vertical-align: top;
+      display: inline-block;
+      line-height: 60px;
+      font-size: 40px;
+      font-weight: bold;
+      @media screen and (max-width: 767px) {
+        display: none;
+      }
+    }
+  }
+  .menu-content {
+    margin-left: 20px;
   }
   .right-content {
     margin-left: auto;

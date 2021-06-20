@@ -11,7 +11,7 @@
         </el-main>
       </el-container>
       <el-footer
-        :height="musicId.length > 0? '80px' : '0px'"
+        :height="musicId.length > 0 ? '80px' : '0px'"
         style="visibility: hidden"
       />
       <div
@@ -92,9 +92,6 @@ export default defineComponent({
 .layout-container {
   height: 100vh;
   width: 100vw;
-  .header-container {
-    background-color: #eee;
-  }
   .aside-content {
     height: calc(100vh - 138px);
   }
