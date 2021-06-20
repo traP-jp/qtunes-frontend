@@ -204,7 +204,7 @@ export default defineComponent({
       emit('toggleFav', !props.isFav)
     }
 
-    const composersLink = `/users/${props.userId}`
+    const composersLink = computed(() => `/users/${props.userId}`)
 
     return {
       audio,

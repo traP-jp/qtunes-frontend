@@ -32,6 +32,7 @@ const store = createStore<StateType>({
   },
   actions: {
     chgAudio(context, payload: PayloadType) {
+      document.title = `Qtunes - ${payload.title}`
       context.commit('chgAudio', payload)
     },
   },
