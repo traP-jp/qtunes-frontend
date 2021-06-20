@@ -106,6 +106,7 @@ export default defineComponent({
             id: data.id,
             title: data.title,
             composer: data.composer_name,
+            isFav: data.is_favorite_by_me,
           })
         },
         timeUpdate: (time: number) => {
@@ -129,6 +130,7 @@ export default defineComponent({
                 id: data.id,
                 title: data.title,
                 composer: data.composer_name,
+                isFav: data.is_favorite_by_me,
               })
             },
             timeUpdate: (time: number) => {

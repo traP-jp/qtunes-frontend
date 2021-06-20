@@ -9,8 +9,9 @@ interface StateType {
   id: string
   title: string
   composer: string
+  isFav: boolean
 }
-type PayloadType = Pick<StateType, 'id' | 'title' | 'composer'>
+type PayloadType = Pick<StateType, 'id' | 'title' | 'composer' | 'isFav'>
 const key: InjectionKey<Store<StateType>> = Symbol()
 const store = createStore<StateType>({
   state(): StateType {
@@ -18,6 +19,7 @@ const store = createStore<StateType>({
       id: '',
       title: '',
       composer: '',
+      isFav: false,
     }
   },
   mutations: {
@@ -25,6 +27,7 @@ const store = createStore<StateType>({
       state.id = payload.id
       state.title = payload.title
       state.composer = payload.composer
+      state.isFav = payload.isFav
     },
   },
   actions: {

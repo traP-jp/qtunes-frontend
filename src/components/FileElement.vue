@@ -84,6 +84,7 @@ export default defineComponent({
         id: props.audioId,
         title: props.title,
         composer: props.userId,
+        isFav: props.isFav,
       })
     }
     const toggleFav = () => {
