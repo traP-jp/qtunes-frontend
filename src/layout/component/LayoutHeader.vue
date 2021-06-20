@@ -1,8 +1,9 @@
 <template>
   <el-header class="header-container">
     <div class="left-content">
-      <img src="../../assets/icon.svg" :width="40" class="logo" />
-      <span class="title-content">Qtunes</span>
+      <router-link to="/">
+        <img src="../../assets/icon.svg" :width="200" class="logo" />
+      </router-link>
     </div>
     <div class="menu-content">
       <el-menu
@@ -74,7 +75,7 @@ export default defineComponent({
     // vertical-align: bottom;
     line-height: 60px;
     .logo {
-      padding: 10px;
+      padding: 5px;
       line-height: 60px;
     }
     .title-content {
