@@ -4,10 +4,22 @@
       <LayoutHeader />
       <el-container>
         <el-aside class="aside-content">
-          <CreatorsList />
+          <el-scrollbar
+            :height="
+              musicId.length > 0 ? 'calc(100vh - 140px)' : 'calc(100vh - 60px)'
+            "
+          >
+            <CreatorsList />
+          </el-scrollbar>
         </el-aside>
         <el-main class="main-content">
-          <slot />
+          <el-scrollbar
+            :height="
+              musicId.length > 0 ? 'calc(100vh - 180px)' : 'calc(100vh - 100px)'
+            "
+          >
+            <slot />
+          </el-scrollbar>
         </el-main>
       </el-container>
       <el-footer
