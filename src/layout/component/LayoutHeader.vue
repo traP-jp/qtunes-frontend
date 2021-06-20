@@ -1,7 +1,9 @@
 <template>
   <el-header class="header-container">
     <div class="left-content">
-      <img src="../../assets/icon.svg" :width="200" class="logo" />
+      <router-link to="/">
+        <img src="../../assets/icon.svg" :width="200" class="logo" />
+      </router-link>
     </div>
     <div class="menu-content">
       <el-menu
