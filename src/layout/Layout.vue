@@ -2,7 +2,6 @@
   <div id="app">
     <el-container class="layout-container">
       <LayoutHeader />
-      <!-- <el-header class="header-container"> header </el-header> -->
       <el-container>
         <el-aside class="aside-content">
           <CreatorsList />
@@ -12,14 +11,16 @@
         </el-main>
       </el-container>
       <el-footer
-        v-if="musicId.length > 0"
-        height="80px"
+        :height="musicId.length > 0 ? '80px' : '0px'"
         style="visibility: hidden"
       />
-      <el-footer v-if="musicId.length > 0" class="fixed-footer" height="80px">
+      <div
+        v-if="musicId.length > 0"
+        class="el-footer fixed-footer"
+        height="80px"
+      >
         <LayoutPlayer :id="musicId" :user-id="userId" :title="title" />
-      </el-footer>
-      <!-- <el-footer>footer</el-footer> -->
+      </div>
     </el-container>
   </div>
 </template>
@@ -43,8 +44,6 @@ export default defineComponent({
     const id = ref(store.state.id)
     const title = ref(store.state.title)
     const userId = ref(store.state.composer)
-    title.value = 'テスト'
-    userId.value = 'TEST'
     store.watch(
       () => ({
         id: store.state.id,
