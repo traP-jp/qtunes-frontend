@@ -5,6 +5,7 @@
         v-for="creator in creators"
         :key="creator"
         :traq-id="creator"
+        :index="creator"
       />
     </el-menu>
   </el-scrollbar>
