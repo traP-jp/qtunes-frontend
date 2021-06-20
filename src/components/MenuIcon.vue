@@ -1,5 +1,5 @@
 <template>
-  <el-menu-item :index="`${index}`">
+  <el-menu-item :index="index" :route="{ name: route }">
     <el-tooltip
       effect="dark"
       placement="bottom"
@@ -25,10 +25,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    index: {
-      type: Number,
+    route: {
+      type: String,
       required: true,
     },
+    index: {
+      type: String,
+      required: true,
+    }
   },
   setup() {},
 })
