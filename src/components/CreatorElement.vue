@@ -1,17 +1,19 @@
 <template>
-  <el-card shadow="never" class="creator_element_card">
-    <el-row :gutter="20">
-      <el-col :span="40">
-        <img
-          :src="`https://q.trap.jp/api/1.0/public/icon/${traqId}`"
-          width="40"
-        />
+  <el-menu-item :style="{ 'padding-left': '0' }">
+    <el-col>
+      <img
+        :src="`https://q.trap.jp/api/1.0/public/icon/${traqId}`"
+        width="48"
+        height="48"
+        class="creator-icon"
+      />
+    </el-col>
+    <el-tooltip placement="right" :content="`@${traqId}`" :show-after="100">
+      <el-col class="traqid-text">
+        {{ traqId }}
       </el-col>
-      <el-tooltip placement="top" :content="`@${traqId}`" :show-after="100">
-        <el-col :span="80" class="traqid_text">@{{ traqId }} </el-col>
-      </el-tooltip>
-    </el-row>
-  </el-card>
+    </el-tooltip>
+  </el-menu-item>
 </template>
 
 <script lang="ts">
@@ -32,17 +34,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.traqid_text {
-  text-align: left;
-  line-height: 44px;
-  max-width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.creator_element_card {
-  cursor: pointer !important;
-  :hover {
-    color: #409eff;
+.el-menu-item {
+  height: 72px;
+  .creator-icon {
+    border-radius: 50%;
+    padding: 12px 12px 12px 12px;
+  }
+  .traqid-text {
+    line-height: 72px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>
