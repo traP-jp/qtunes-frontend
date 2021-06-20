@@ -1,18 +1,16 @@
 <template>
-  <el-scrollbar>
-    <div v-if="composers === null || composers.length === 0">
-      <i class="el-icon-heavy-rain" />
-      <span> 読込中... </span>
-    </div>
-    <el-menu v-else router :default-active="activeIndex">
-      <CreatorElement
-        v-for="composer in composers"
-        :key="composer"
-        :traq-id="composer"
-        :index="`/users/${composer}`"
-      />
-    </el-menu>
-  </el-scrollbar>
+  <div v-if="composers === null || composers.length === 0">
+    <i class="el-icon-heavy-rain" />
+    <span> 読込中... </span>
+  </div>
+  <el-menu v-else router :default-active="activeIndex">
+    <CreatorElement
+      v-for="composer in composers"
+      :key="composer"
+      :traq-id="composer"
+      :index="`/users/${composer}`"
+    />
+  </el-menu>
 </template>
 
 <script lang="ts">
