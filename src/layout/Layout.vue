@@ -11,13 +11,13 @@
           <slot />
         </el-main>
       </el-container>
-      <el-footer class="fixed-footer" height="auto">
-        <LayoutPlayer
-          v-if="musicId.length > 0"
-          :id="musicId"
-          :user-id="userId"
-          :title="title"
-        />
+      <el-footer
+        v-if="musicId.length > 0"
+        height="80px"
+        style="visibility: hidden"
+      />
+      <el-footer v-if="musicId.length > 0" class="fixed-footer" height="80px">
+        <LayoutPlayer :id="musicId" :user-id="userId" :title="title" />
       </el-footer>
       <!-- <el-footer>footer</el-footer> -->
     </el-container>
@@ -43,6 +43,8 @@ export default defineComponent({
     const id = ref(store.state.id)
     const title = ref(store.state.title)
     const userId = ref(store.state.composer)
+    title.value = 'テスト'
+    userId.value = 'TEST'
     store.watch(
       () => ({
         id: store.state.id,

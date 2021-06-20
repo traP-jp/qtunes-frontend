@@ -89,7 +89,7 @@ export default defineComponent({
         } = await api.getMe()
         let files: ModelFile[] = []
         try {
-          ;({ data: files } = await api.getComposerFiles(id))
+          ;({ data: files } = await api.getMeFavorite())
         } catch (err) {
           console.error(err)
         }
