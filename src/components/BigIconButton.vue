@@ -1,16 +1,17 @@
 <template>
   <el-button
     class="big-icon-button"
+    :type="type"
     plain
     circle
     @click="$emit('click', $event)"
   >
-    <i :class="`${icon} big-icon`" />
+    <i :class="`${icon} big-icon`" :style="iconSizeStyle" />
   </el-button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'BigIconButton',
@@ -19,9 +20,26 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    size: {
+      type: String,
+      default: null,
+    },
+    type: {
+      type: String as PropType<
+        'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
+      >,
+      default: 'default',
+    },
   },
   emits: ['click'],
-  setup() {},
+  setup(props) {
+    const iconSizeStyle = computed(() => ({
+      '--icon-size': props.size ?? '1.5rem',
+    }))
+    return {
+      iconSizeStyle,
+    }
+  },
 })
 </script>
 
@@ -33,7 +51,7 @@ export default defineComponent({
   height: 36px;
   width: 36px;
   & > span > i {
-    font-size: 48px;
+    font-size: var(--icon-size);
   }
 
   &:hover.el-button--default,
