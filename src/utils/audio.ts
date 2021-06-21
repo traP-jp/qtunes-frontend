@@ -7,45 +7,55 @@ interface AudioElementOptions {
 }
 
 const createAudioElement = (id: string, options: AudioElementOptions) => {
-  const nowAudio = ref(new Audio(api.downloadFileLink(id)))
+  const audio = new Audio(api.downloadFileLink(id))
+  // const audio = new Audio('http://www.hmix.net/music/n/n148.mp3') for test
 
-  nowAudio.value.load()
+  audio.load()
 
-  const isPaused = ref(nowAudio.value.paused)
+  const isPaused = ref(audio.paused)
   const play = () => {
     isPaused.value = false
-    nowAudio.value.play()
+    audio.play()
   }
   const pause = () => {
     isPaused.value = true
-    nowAudio.value.pause()
+    audio.pause()
   }
 
-  const isLoop = ref(nowAudio.value.loop)
+  const isLoop = ref(audio.loop)
   const toggleLoop = () => {
     isLoop.value = !isLoop.value
   }
 
-  const maxVol = 0.5
-  const volume = ref(Math.floor(Math.max(nowAudio.value.volume, maxVol) * 100))
+  const parseVol = (x: number) => {
+    if (Number.isNaN(x)) {
+      x = 100
+    } else if (x < 0) {
+      x = 0
+    } else if (x > 100) {
+      x = 100
+    }
+    return (x * x) / 10000
+  }
+  const volume = ref(Math.floor(audio.volume ** 0.5 * 100))
   const setVolume = (nxtVolume: number) => {
     volume.value = nxtVolume
-    nowAudio.value.volume = (nxtVolume / 100) * maxVol
+    audio.volume = parseVol(nxtVolume)
   }
 
-  const maxTime = ref(nowAudio.value.duration)
-  nowAudio.value.addEventListener('durationchange', (_event) => {
-    maxTime.value = nowAudio.value.duration
+  const maxTime = ref(audio.duration)
+  audio.addEventListener('durationchange', (_event) => {
+    maxTime.value = audio.duration
   })
 
   const setTime = (nxtTime: number) => {
     console.log(`nxtTime = ${nxtTime}`)
-    nowAudio.value.currentTime = nxtTime
-    console.log(`afterTime = ${nowAudio.value.currentTime}`)
+    audio.currentTime = nxtTime
+    console.log(`afterTime = ${audio.currentTime}`)
   }
 
   const timeUpdateHandler = (_event: Event) => {
-    options.timeUpdate(nowAudio.value.currentTime)
+    options.timeUpdate(audio.currentTime)
   }
   const endedHandler = (_event: Event) => {
     if (isLoop.value) {
@@ -56,16 +66,16 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     options.ended()
   }
 
-  nowAudio.value.addEventListener('timeupdate', timeUpdateHandler)
-  nowAudio.value.addEventListener('ended', endedHandler)
+  audio.addEventListener('timeupdate', timeUpdateHandler)
+  audio.addEventListener('ended', endedHandler)
 
   const broke = () => {
-    nowAudio.value.pause()
-    nowAudio.value.removeEventListener('durationchange', (_event) => {
-      maxTime.value = nowAudio.value.duration
+    audio.pause()
+    audio.removeEventListener('durationchange', (_event) => {
+      maxTime.value = audio.duration
     })
-    nowAudio.value.removeEventListener('timeupdate', timeUpdateHandler)
-    nowAudio.value.removeEventListener('ended', endedHandler)
+    audio.removeEventListener('timeupdate', timeUpdateHandler)
+    audio.removeEventListener('ended', endedHandler)
   }
 
   return {
@@ -75,9 +85,9 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     toggleLoop,
     isLoop,
     setVolume,
+    volume,
     setTime,
     maxTime,
-    volume,
     broke,
   }
 }

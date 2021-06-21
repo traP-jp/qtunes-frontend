@@ -29,14 +29,14 @@
       <el-col :span="24" :md="{ span: 16 }" :lg="{ span: 18 }">
         <template v-if="userInfo.files.length === 0">
           <div class="title-content">
-            <i class="el-icon-heavy-rain title-icon" />
+            <i class="el-icon-star-off title-icon" />
             まだお気に入りに登録された曲がありません
           </div>
         </template>
         <div v-else>
           <div class="list-container">
             <div class="title-content">
-              <i class="el-icon-notebook-2 title-icon" />
+              <i class="el-icon-star-on title-icon" />
               All favs
             </div>
             <el-row :gutter="12">

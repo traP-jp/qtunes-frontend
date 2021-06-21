@@ -10,10 +10,12 @@
       </el-button>
     </el-card>
   </div>
-  <div v-if="favorites !== null && favorites.length > 0">
+  <div v-if="favorites !== null && favorites.length > 0" class="list-container">
     <div class="title-content">
-      <i class="el-icon-refresh-right title-icon" />
-      Favorites
+      <router-link :to="{ name: 'favorite' }" class="no-decoration">
+        <i class="el-icon-star-on title-icon" />
+        Favorites
+      </router-link>
     </div>
     <div class="fav-all-container">
       <el-card v-for="audio in favorites" :key="audio.id" class="fav-container">
@@ -90,6 +92,7 @@ export default defineComponent({
   width: min(100%, 480px);
   min-width: min(100%, 480px);
   position: relative;
+  box-sizing: border-box;
   .random-content {
     position: absolute;
     top: 0;
@@ -118,10 +121,17 @@ export default defineComponent({
   font-weight: bold;
   line-height: 24px;
   font-size: 18px;
+  .no-decoration {
+    text-decoration: none;
+    color: inherit;
+  }
   .title-icon {
     font-size: 18px;
     margin-right: 8px;
   }
+}
+.list-container {
+  margin-top: 24px;
 }
 .fav-all-container {
   display: flex;
