@@ -10,9 +10,9 @@
       </el-button>
     </el-card>
   </div>
-  <div v-if="favorites !== null && favorites.length > 0">
+  <div v-if="favorites !== null && favorites.length > 0" class="list-container">
     <div class="title-content">
-      <i class="el-icon-refresh-right title-icon" />
+      <i class="el-icon-star-on title-icon" />
       Favorites
     </div>
     <div class="fav-all-container">
@@ -123,6 +123,9 @@ export default defineComponent({
     font-size: 18px;
     margin-right: 8px;
   }
+}
+.list-container {
+  margin-top: 24px;
 }
 .fav-all-container {
   display: flex;
