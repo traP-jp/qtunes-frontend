@@ -69,9 +69,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, watch } from 'vue'
+import { ref, computed, defineComponent, watch, onMounted } from 'vue'
+import useHotKey, { HotKey } from 'vue3-hotkey'
 import createAudioElement from '../../utils/audio'
-import { ref } from 'vue'
 import { api } from '../../utils/api'
 import { useStore } from '../../main'
 import BigIconButton from '/@/components/BigIconButton.vue'
@@ -192,6 +192,20 @@ export default defineComponent({
     }
 
     const composersLink = computed(() => `/users/${props.userId}`)
+
+    const hotShort: HotKey[] = [
+      {
+        keys: ['space'],
+        handler(_keys) {
+          togglePlay()
+        },
+      },
+    ]
+    onMounted(() => {
+      useHotKey(hotShort)()
+    })
+    // TODO: このパッケージ console.log でる
+    // TODO: 検索実装するときにバグる気がする
 
     return {
       audio,

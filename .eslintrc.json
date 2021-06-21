@@ -19,6 +19,8 @@
     "semi-spacing": ["error", { "after": true, "before": false }],
     "semi-style": ["error", "first"],
     "no-unexpected-multiline": "error",
-    "no-unreachable": "error"
+    "no-unreachable": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "args": "after-used" }]
   }
 }
