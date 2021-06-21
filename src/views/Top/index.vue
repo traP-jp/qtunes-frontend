@@ -90,6 +90,7 @@ export default defineComponent({
   width: min(100%, 480px);
   min-width: min(100%, 480px);
   position: relative;
+  box-sizing: border-box;
   .random-content {
     position: absolute;
     top: 0;
