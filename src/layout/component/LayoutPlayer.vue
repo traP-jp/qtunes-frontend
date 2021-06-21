@@ -23,19 +23,7 @@
         </div>
       </el-col>
       <el-col :span="2">
-        <el-button
-          :type="isFav ? 'warning' : 'default'"
-          class="big-icon-button"
-          plain
-          circle
-          @click="toggleFav"
-        >
-          <i
-            :class="`${
-              isFav ? 'el-icon-star-on' : 'el-icon-star-off'
-            } big-icon fav-icon`"
-          />
-        </el-button>
+        <FavButton :is-fav="isFav" @click="toggleFav" />
       </el-col>
       <el-col :offset="0" :span="12" class="time-slider-container">
         <el-row class="time-slider-with-msg">
@@ -56,22 +44,15 @@
         </el-row>
       </el-col>
       <el-col :offset="0" :span="2" class="controle-button-container">
-        <el-button
-          class="big-icon-button"
+        <BigIconButton
           :type="audio.isLoop ? 'primary' : 'default'"
-          plain
-          circle
+          icon="el-icon-refresh-right"
           @click="audio.toggleLoop"
-        >
-          <i class="el-icon-refresh-right" />
-        </el-button>
-        <el-button class="big-icon-button" plain circle @click="togglePlay">
-          <i
-            :class="`${
-              isPlayed ? 'el-icon-video-pause' : 'el-icon-video-play'
-            } big-icon`"
-          />
-        </el-button>
+        />
+        <BigIconButton
+          :icon="isPlayed ? 'el-icon-video-pause' : 'el-icon-video-play'"
+          @click="togglePlay"
+        />
       </el-col>
       <el-col :span="4">
         <el-slider
@@ -93,9 +74,15 @@ import createAudioElement from '../../utils/audio'
 import { ref } from 'vue'
 import { api } from '../../utils/api'
 import { useStore } from '../../main'
+import BigIconButton from '/@/components/BigIconButton.vue'
+import FavButton from '/@/components/FavButton.vue'
 
 export default defineComponent({
   name: 'LayoutPlayer',
+  components: {
+    BigIconButton,
+    FavButton,
+  },
   props: {
     id: {
       type: String,
@@ -286,48 +273,8 @@ export default defineComponent({
   .controle-button-container {
     display: flex;
     padding-right: 16px;
-    .big-icon-button {
-      padding: 0 !important;
-      border: 0 !important;
-      min-height: 0 !important;
-      margin: {
-        top: auto;
-        bottom: auto;
-      }
-      &:first-of-type {
-        margin-left: auto;
-      }
-      & > span > i {
-        font-size: 1.5rem;
-      }
-    }
-  }
-  .big-icon-button {
-    padding: 0 !important;
-    border: 0 !important;
-    min-height: 0 !important;
-    margin: {
-      top: auto;
-      bottom: auto;
-    }
-    & > span > i {
-      font-size: 1.5rem;
-    }
-  }
-  .big-icon-button {
-    &:hover.el-button--default,
-    &:focus.el-button--default {
-      .fav-icon {
-        color: #e6a23c !important;
-      }
-    }
-    &.el-button--warning {
-      background-color: transparent !important;
-    }
-    &:hover.el-button--warning,
-    &:focus.el-button--warning {
-      background-color: transparent !important;
-      color: #e6a23c !important;
+    & > button:first-child {
+      margin-left: auto;
     }
   }
   .volume-slider {

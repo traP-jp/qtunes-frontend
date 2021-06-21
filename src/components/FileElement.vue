@@ -6,9 +6,7 @@
   >
     <el-row class="card-content">
       <el-col :span="19" class="left-content">
-        <el-button class="big-icon-button" plain circle @click="chgAudio">
-          <i :class="'el-icon-video-play big-icon'" />
-        </el-button>
+        <BigIconButton icon="el-icon-video-play" @click="chgAudio" />
         <div class="audio-info-container">
           <el-tooltip :content="title" placement="top" :show-after="300">
             <div class="sound-title">
@@ -23,22 +21,8 @@
         </div>
       </el-col>
       <el-col :span="5" class="buttons-container">
-        <el-button
-          :type="isFav ? 'warning' : 'default'"
-          class="big-icon-button"
-          plain
-          circle
-          @click="toggleFav"
-        >
-          <i
-            :class="`${
-              isFav ? 'el-icon-star-on' : 'el-icon-star-off'
-            } big-icon fav-icon`"
-          />
-        </el-button>
-        <el-button class="big-icon-button" plain circle @click="openFileLink">
-          <i class="el-icon-top-right big-icon" />
-        </el-button>
+        <FavButton :is-fav="isFav" @click="toggleFav" />
+        <BigIconButton icon="el-icon-top-right" @click="openFileLink" />
       </el-col>
     </el-row>
   </el-card>
@@ -47,9 +31,12 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from '../main'
+import BigIconButton from './BigIconButton.vue'
+import FavButton from '/@/components/FavButton.vue'
 
 export default defineComponent({
   name: 'FileElement',
+  components: { BigIconButton, FavButton },
   props: {
     title: {
       type: String,
@@ -151,36 +138,10 @@ export default defineComponent({
       text-decoration-line: none;
     }
   }
-  .big-icon-button {
-    padding: 0 !important;
-    border: 0 !important;
-    min-height: 0 !important;
-    height: 36px;
-    width: 36px;
-    & > span > i {
-      font-size: 1.5rem;
-    }
-  }
   .buttons-container {
     display: flex;
-    .big-icon-button {
-      &:first-of-type {
-        margin-left: auto;
-      }
-      &:hover.el-button--default,
-      &:focus.el-button--default {
-        .fav-icon {
-          color: #e6a23c !important;
-        }
-      }
-      &.el-button--warning {
-        background-color: transparent !important;
-      }
-      &:hover.el-button--warning,
-      &:focus.el-button--warning {
-        background-color: transparent !important;
-        color: #e6a23c !important;
-      }
+    & > button:first-child {
+      margin-left: auto;
     }
   }
 }
