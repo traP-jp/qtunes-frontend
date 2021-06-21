@@ -5,9 +5,11 @@
       Random
     </div>
     <el-card class="random-container" @click="playRandom">
-      <el-button plain circle class="big-icon-button random-content">
-        <i class="el-icon-video-play big-icon" />
-      </el-button>
+      <BigIconButton
+        icon="el-icon-video-play"
+        class="random-content"
+        size="48px"
+      />
     </el-card>
   </div>
   <div v-if="favorites !== null && favorites.length > 0" class="list-container">
@@ -42,10 +44,13 @@ import { defineComponent, ref, Ref } from 'vue'
 import { ModelFile } from '../../lib/apis/generated'
 import { useStore } from '../../main'
 import { api } from '../../utils/api'
+import BigIconButton from '/@/components/BigIconButton.vue'
 
 export default defineComponent({
   name: 'Top',
-  components: {},
+  components: {
+    BigIconButton,
+  },
   setup() {
     const store = useStore()
     const favorites: Ref<ModelFile[] | null> = ref(null)
@@ -102,18 +107,6 @@ export default defineComponent({
     margin: auto;
     height: 48px;
     width: 48px;
-  }
-}
-.big-icon-button {
-  padding: 0 !important;
-  border: 0 !important;
-  min-height: 0 !important;
-  margin: {
-    top: auto;
-    bottom: auto;
-  }
-  & > span > i {
-    font-size: 48px;
   }
 }
 .title-content {
