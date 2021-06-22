@@ -4,9 +4,11 @@
       effect="dark"
       placement="bottom"
       :content="`${message}`"
-      :show-after="100"
+      :show-after="500"
     >
-      <i :class="`${icon}`" />
+      <div class="max-content">
+        <i :class="`${icon}`" />
+      </div>
     </el-tooltip>
   </el-menu-item>
 </template>
@@ -32,8 +34,17 @@ export default defineComponent({
     index: {
       type: String,
       required: true,
-    }
+    },
   },
   setup() {},
 })
 </script>
+
+<style lang="scss" scoped>
+.max-content {
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 -20px;
+}
+</style>
