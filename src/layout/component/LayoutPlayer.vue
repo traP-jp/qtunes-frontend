@@ -148,7 +148,6 @@ export default defineComponent({
             },
           })
         ).value
-        audio.value.setVolume(nowVol.value)
         if (audio.value.isLoop !== flag) {
           audio.value.toggleLoop()
         }
