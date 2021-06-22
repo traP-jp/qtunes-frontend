@@ -12,7 +12,7 @@
         class="creator-icon"
       />
     </el-col>
-    <el-tooltip placement="right" :content="`@${traqId}`" :show-after="100">
+    <el-tooltip placement="right" :content="`@${traqId}`" :show-after="500">
       <el-col class="traqid-text">
         {{ traqId }}
       </el-col>

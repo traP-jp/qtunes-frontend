@@ -10,7 +10,7 @@
           />
         </router-link>
         <div class="info-container">
-          <el-tooltip :content="title" placement="top" :show-after="300">
+          <el-tooltip :content="title" placement="top" :show-after="500">
             <div class="sound-title">
               {{ title }}
             </div>

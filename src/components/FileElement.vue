@@ -8,7 +8,7 @@
       <el-col :span="19" class="left-content">
         <BigIconButton icon="el-icon-video-play" @click="chgAudio" />
         <div class="audio-info-container">
-          <el-tooltip :content="title" placement="top" :show-after="300">
+          <el-tooltip :content="title" placement="top" :show-after="500">
             <div class="sound-title">
               {{ title }}
             </div>

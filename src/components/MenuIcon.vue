@@ -4,7 +4,7 @@
       effect="dark"
       placement="bottom"
       :content="`${message}`"
-      :show-after="100"
+      :show-after="500"
     >
       <div class="max-content">
         <i :class="`${icon}`" />
