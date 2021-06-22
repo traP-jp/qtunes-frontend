@@ -8,7 +8,7 @@ interface AudioElementOptions {
 
 const createAudioElement = (id: string, options: AudioElementOptions) => {
   const audio = new Audio(api.downloadFileLink(id))
-  // const audio = new Audio('http://www.hmix.net/music/n/n148.mp3') for test
+  // const audio = new Audio('http://www.hmix.net/music/n/n148.mp3') // for test
 
   audio.load()
 
@@ -38,9 +38,17 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
     return (x * x) / 10000
   }
   const volume = ref(Math.floor(audio.volume ** 0.5 * 100))
+  const localVol = localStorage.getItem('volume')
+  if (localVol !== null) {
+    volume.value = !Number.isNaN(Number(localVol))
+      ? Number(localVol)
+      : volume.value
+    audio.volume = parseVol(volume.value)
+  }
   const setVolume = (nxtVolume: number) => {
     volume.value = nxtVolume
     audio.volume = parseVol(nxtVolume)
+    localStorage.setItem('volume', String(nxtVolume))
   }
 
   const maxTime = ref(audio.duration)
