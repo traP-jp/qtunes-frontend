@@ -32,7 +32,8 @@ export default defineComponent({
       () => route.path,
       () => {
         activeIndex.value = route.path
-    })
+      }
+    )
     const fetchCreators = async () => {
       try {
         const { data } = await api.getComposers()

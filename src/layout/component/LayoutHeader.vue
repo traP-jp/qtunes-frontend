@@ -54,7 +54,8 @@ export default defineComponent({
       () => route.name,
       () => {
         activeIndex.value = route.name
-    })
+      }
+    )
     return {
       activeIndex,
     }
