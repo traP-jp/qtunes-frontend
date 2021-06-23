@@ -14,9 +14,9 @@
       <FileElement
         :key="files[0].id"
         :title="files[0].title"
-        :user-id="files[0].composer_name"
+        :user-id="files[0].userId"
         :audio-id="files[0].id"
-        :is-fav="files[0].is_favorite_by_me"
+        :is-fav="files[0].isFav"
         @toggleFav="toggleFav(0, $event)"
       />
     </div>
@@ -35,9 +35,9 @@
         >
           <FileElement
             :title="file.title"
-            :user-id="file.composer_name"
+            :user-id="file.userId"
             :audio-id="file.id"
-            :is-fav="file.is_favorite_by_me"
+            :is-fav="file.isFav"
             @toggleFav="toggleFav(idx, $event)"
           />
         </el-col>
@@ -47,10 +47,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { computed, defineComponent } from 'vue'
 import FileElement from '../../components/FileElement.vue'
-import { ModelFile } from '../../lib/apis/generated'
-import { api } from '../../utils/api'
+import { useDatas } from '../../store'
 
 export default defineComponent({
   name: 'Files',
@@ -58,26 +58,27 @@ export default defineComponent({
     FileElement,
   },
   setup() {
-    const files: Ref<ModelFile[] | null> = ref(null)
-    const fetchFiles = async () => {
-      try {
-        const { data } = await api.getFiles()
-        files.value = data
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchFiles()
+    const datas = useDatas()
+    datas.fetchFiles()
+    const files = computed(() =>
+      datas.files.value === null
+        ? null
+        : datas.files.value.map((data) => ({
+            id: data.id,
+            userId: data.composer_name!,
+            title: data.title!,
+            isFav: data.is_favorite_by_me,
+            createdAt: data.created_at,
+          }))
+    )
     const toggleFav = async (idx: number, value: boolean) => {
-      if (files.value === null) {
-        console.error('files is empty')
-        return
-      }
       try {
-        await api.putFileFavorite(files.value[idx].id, value)
-        files.value[idx].is_favorite_by_me = value
+        await datas.updateFilesFav(idx, value)
       } catch (err) {
-        console.error(err)
+        ElMessage.error({
+          type: 'error',
+          message: `Toggle Fav failed: ${err}`,
+        })
       }
     }
     return {

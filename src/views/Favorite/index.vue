@@ -1,5 +1,5 @@
 <template>
-  <template v-if="userInfo === null">
+  <template v-if="favs === null">
     <div class="title-content">
       <i class="el-icon-heavy-rain title-icon" />
       読込中...
@@ -14,7 +14,7 @@
         class="user-info-container"
       >
         <el-image
-          :src="`https://q.trap.jp/api/1.0/public/icon/${userInfo.name}`"
+          :src="`https://q.trap.jp/api/1.0/public/icon/${myId}`"
           class="image-content"
         >
           <template #error>
@@ -24,10 +24,10 @@
           </template>
         </el-image>
         <div class="user-name-content">お気に入り</div>
-        <div class="post-count-content">{{ userInfo.files.length }}曲</div>
+        <div class="post-count-content">{{ favs.length }}曲</div>
       </el-col>
       <el-col :span="24" :md="{ span: 16 }" :lg="{ span: 18 }">
-        <template v-if="userInfo.files.length === 0">
+        <template v-if="favs.length === 0">
           <div class="title-content">
             <i class="el-icon-star-off title-icon" />
             まだお気に入りに登録された曲がありません
@@ -41,7 +41,7 @@
             </div>
             <el-row :gutter="12">
               <el-col
-                v-for="(file, idx) in userInfo.files"
+                v-for="(file, idx) in favs"
                 :key="file.id"
                 :lg="12"
                 :span="24"
@@ -49,10 +49,9 @@
               >
                 <FileElement
                   :title="file.title"
-                  :user-id="file.composer_name"
+                  :user-id="file.userId"
                   :audio-id="file.id"
-                  :created-at="file.created_at"
-                  :is-fav="file.is_favorite_by_me"
+                  :is-fav="file.isFav"
                   @toggleFav="toggleFav(idx, $event)"
                 />
               </el-col>
@@ -65,11 +64,10 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, Ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { defineComponent, computed } from 'vue'
 import FileElement from '../../components/FileElement.vue'
-import { ModelFile, UserMe } from '../../lib/apis/generated'
-import { api } from '../../utils/api'
+import { useDatas } from '../../store'
 
 export default defineComponent({
   name: 'User',
@@ -77,47 +75,33 @@ export default defineComponent({
     FileElement,
   },
   setup() {
-    const route = useRoute()
-    const name = route.params.userId as string
-    const userInfo: Ref<
-      (Pick<UserMe, 'id' | 'name'> & { files: ModelFile[] }) | null
-    > = ref(null)
-    const fetchUserInfo = async () => {
-      try {
-        const {
-          data: { id, name },
-        } = await api.getMe()
-        let files: ModelFile[] = []
-        try {
-          ;({ data: files } = await api.getMeFavorite())
-        } catch (err) {
-          console.error(err)
-        }
-        userInfo.value = {
-          id,
-          name,
-          files,
-        }
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchUserInfo()
+    const datas = useDatas()
+    const myId = computed(() => datas.me.value)
+    const favs = computed(() =>
+      datas.favs.value === null
+        ? null
+        : datas.favs.value.map((data) => ({
+            id: data.id,
+            userId: data.composer_name,
+            title: data.title,
+            isFav: data.is_favorite_by_me,
+            createdAt: data.created_at,
+          }))
+    )
+    datas.fetchFavs()
     const toggleFav = async (idx: number, value: boolean) => {
-      if (userInfo.value === null) {
-        console.error('user is empty')
-        return
-      }
       try {
-        await api.putFileFavorite(userInfo.value.files[idx].id, value)
-        userInfo.value.files[idx].is_favorite_by_me = value
+        await datas.updateFavsFav(idx, value)
       } catch (err) {
-        console.error(err)
+        ElMessage.error({
+          type: 'error',
+          message: `Toggle Fav failed !: ${err}`,
+        })
       }
     }
     return {
-      name,
-      userInfo,
+      myId,
+      favs,
       toggleFav,
     }
   },

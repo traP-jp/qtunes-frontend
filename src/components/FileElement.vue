@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import { useStore } from '../main'
+import { useAudios } from '../store'
 import BigIconButton from './BigIconButton.vue'
 import FavButton from '/@/components/FavButton.vue'
 
@@ -65,12 +65,12 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const store = useStore()
-    const chgAudio = async () => {
-      store.dispatch('chgAudio', {
+    const audios = useAudios()
+    const chgAudio = () => {
+      audios.playAudio({
         id: props.audioId,
         title: props.title,
-        composer: props.userId,
+        userId: props.userId,
         isFav: props.isFav,
       })
     }

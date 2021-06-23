@@ -6,6 +6,7 @@ interface AudioElementOptions {
   timeUpdate: (afterTime: number) => void
 }
 
+export type AudioElement = ReturnType<typeof createAudioElement>
 const createAudioElement = (id: string, options: AudioElementOptions) => {
   const audio = new Audio(api.downloadFileLink(id))
   // const audio = new Audio('http://www.hmix.net/music/n/n148.mp3') // for test
@@ -57,9 +58,7 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
   })
 
   const setTime = (nxtTime: number) => {
-    console.log(`nxtTime = ${nxtTime}`)
     audio.currentTime = nxtTime
-    console.log(`afterTime = ${audio.currentTime}`)
   }
 
   const timeUpdateHandler = (_event: Event) => {
