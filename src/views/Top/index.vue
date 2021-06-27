@@ -53,7 +53,6 @@ export default defineComponent({
   setup() {
     const audios = useAudios()
     const datas = useDatas()
-    datas.fetchFavs()
     const favorites = computed(() =>
       datas.favs.value === null
         ? null
@@ -64,6 +63,7 @@ export default defineComponent({
             isFav: data.is_favorite_by_me,
           }))
     )
+    datas.fetchFavs()
     const playRandom = async () => {
       try {
         await audios.playRandom()

@@ -59,7 +59,6 @@ export default defineComponent({
   },
   setup() {
     const datas = useDatas()
-    datas.fetchFiles()
     const files = computed(() =>
       datas.files.value === null
         ? null
@@ -71,6 +70,7 @@ export default defineComponent({
             createdAt: data.created_at,
           }))
     )
+    datas.fetchFiles()
     const toggleFav = async (idx: number, value: boolean) => {
       try {
         await datas.updateFilesFav(idx, value)
