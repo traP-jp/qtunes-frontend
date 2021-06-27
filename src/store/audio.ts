@@ -16,6 +16,7 @@ const playAudio = (payload: {
 }) => {
   id.value = payload.id
   title.value = payload.title
+  userId.value = payload.userId
   isFav.value = payload.isFav
   time.value = 0
   const loopFlag = audio.value !== null && audio.value.isLoop
