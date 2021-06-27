@@ -6,24 +6,28 @@
           <img
             height="38"
             width="38"
-            :src="`https://q.trap.jp/api/1.0/public/icon/${userId}`"
+            :src="`https://q.trap.jp/api/1.0/public/icon/${audioInfo.userId}`"
           />
         </router-link>
         <div class="info-container">
-          <el-tooltip :content="title" placement="top" :show-after="500">
+          <el-tooltip
+            :content="audioInfo.title"
+            placement="top"
+            :show-after="500"
+          >
             <div class="sound-title">
-              {{ title }}
+              {{ audioInfo.title }}
             </div>
           </el-tooltip>
           <router-link :to="composersLink">
             <div class="sound-composer">
-              {{ userId }}
+              {{ audioInfo.userId }}
             </div>
           </router-link>
         </div>
       </el-col>
       <el-col :span="2">
-        <FavButton :is-fav="isFav" @click="toggleFav" />
+        <FavButton :is-fav="audioInfo.isFav" @click="toggleFav" />
       </el-col>
       <el-col :offset="0" :span="12" class="time-slider-container">
         <el-row class="time-slider-with-msg">
@@ -69,13 +73,12 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, defineComponent, watch, onMounted } from 'vue'
+import { ref, computed, defineComponent, onMounted, watch } from 'vue'
 import useHotKey, { HotKey } from 'vue3-hotkey'
-import createAudioElement from '../../utils/audio'
-import { api } from '../../utils/api'
-import { useStore } from '../../main'
+import { useAudios } from '../../store'
 import BigIconButton from '/@/components/BigIconButton.vue'
 import FavButton from '/@/components/FavButton.vue'
+import { ElMessage } from 'element-plus'
 
 export default defineComponent({
   name: 'LayoutPlayer',
@@ -83,82 +86,32 @@ export default defineComponent({
     BigIconButton,
     FavButton,
   },
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-    userId: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    isFav: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  emits: {
-    toggleFav(_: boolean) {
-      return true
-    },
-  },
-  setup(props, { emit }) {
-    const store = useStore()
+  setup() {
+    const audios = useAudios()
     const nowPos = ref(0)
-    const audio = ref(
-      createAudioElement(props.id, {
-        ended: async () => {
-          const { data } = await api.getFileRandom()
-          store.dispatch('chgAudio', {
-            id: data.id,
-            title: data.title,
-            composer: data.composer_name,
-            isFav: data.is_favorite_by_me,
-          })
-        },
-        timeUpdate: (time: number) => {
-          nowPos.value = time
-        },
-      })
-    )
-    audio.value.play()
-    watch(
-      () => props.id,
-      (id: string) => {
-        nowPos.value = 0
-        audio.value.broke()
-        const flag = audio.value.isLoop
-        audio.value = ref(
-          createAudioElement(id, {
-            ended: async () => {
-              const { data } = await api.getFileRandom()
-              store.dispatch('chgAudio', {
-                id: data.id,
-                title: data.title,
-                composer: data.composer_name,
-                isFav: data.is_favorite_by_me,
-              })
-            },
-            timeUpdate: (time: number) => {
-              nowPos.value = time
-            },
-          })
-        ).value
-        if (audio.value.isLoop !== flag) {
-          audio.value.toggleLoop()
-        }
-        audio.value.play()
-      }
-    )
-    const nowVol = ref(audio.value.volume)
+    const audioInfo = computed(() => ({
+      id: audios.id.value,
+      time: audios.time.value,
+      title: audios.title.value,
+      userId: audios.userId.value,
+      isFav: audios.isFav.value,
+    }))
+    const audio = computed(() => audios.audio.value!)
+    const nowVol = ref(audio.value!.volume)
     const musicLength = computed(() => {
       return Math.ceil(audio.value.maxTime)
     })
-    const isPlayed = computed(() => !audio.value.isPaused)
+    const isPlayed = computed(() => !audio.value!.isPaused)
+
+    watch(
+      () => audios.time.value,
+      (nxt: number | null) => {
+        if (nxt === null) {
+          return
+        }
+        nowPos.value = nxt
+      }
+    )
 
     const onPosChange = (event: number) => {
       if (!Number.isInteger(event)) {
@@ -186,11 +139,18 @@ export default defineComponent({
     const togglePlay = () => {
       isPlayed.value ? audio.value.pause() : audio.value.play()
     }
-    const toggleFav = () => {
-      emit('toggleFav', !props.isFav)
+    const toggleFav = async () => {
+      try {
+        await audios.updateFav(!audios.isFav.value)
+      } catch (err) {
+        ElMessage.error({
+          type: 'error',
+          message: `Toggle Fav failed !: ${err}`,
+        })
+      }
     }
 
-    const composersLink = computed(() => `/users/${props.userId}`)
+    const composersLink = computed(() => `/users/${audios.userId}`)
 
     const hotShort: HotKey[] = [
       {
@@ -208,6 +168,7 @@ export default defineComponent({
 
     return {
       audio,
+      audioInfo,
       musicLength,
       nowPos,
       nowVol,

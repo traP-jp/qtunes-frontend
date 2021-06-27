@@ -22,16 +22,16 @@
     <div class="fav-all-container">
       <el-card v-for="audio in favorites" :key="audio.id" class="fav-container">
         <el-image
-          :src="`https://q.trap.jp/api/1.0/public/icon/${audio.composer_name}`"
+          :src="`https://q.trap.jp/api/1.0/public/icon/${audio.userId}`"
           class="fav-image"
           @click="playAudio(audio.id)"
         />
         <div class="sound-title">
           {{ audio.title }}
         </div>
-        <router-link :to="`/users/${audio.composer_name}`">
+        <router-link :to="`/users/${audio.userId}`">
           <div class="sound-composer">
-            {{ audio.composer_name }}
+            {{ audio.userId }}
           </div>
         </router-link>
       </el-card>
@@ -40,10 +40,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from 'vue'
-import { ModelFile } from '../../lib/apis/generated'
-import { useStore } from '../../main'
-import { api } from '../../utils/api'
+import { ElMessage } from 'element-plus'
+import { computed, defineComponent } from 'vue'
+import { useAudios, useDatas } from '../../store'
 import BigIconButton from '/@/components/BigIconButton.vue'
 
 export default defineComponent({
@@ -52,34 +51,38 @@ export default defineComponent({
     BigIconButton,
   },
   setup() {
-    const store = useStore()
-    const favorites: Ref<ModelFile[] | null> = ref(null)
-    const fetchFavorites = async () => {
+    const audios = useAudios()
+    const datas = useDatas()
+    datas.fetchFavs()
+    const favorites = computed(() =>
+      datas.favs.value === null
+        ? null
+        : datas.favs.value.map((data) => ({
+            id: data.id,
+            userId: data.id,
+            title: data.title!,
+            isFav: data.is_favorite_by_me,
+          }))
+    )
+    const playRandom = async () => {
       try {
-        const { data } = await api.getMeFavorite()
-        favorites.value = data
+        await audios.playRandom()
       } catch (err) {
-        console.error(err)
+        ElMessage.error({
+          message: `randam play failed: ${err}`,
+          type: 'error',
+        })
       }
     }
-    fetchFavorites()
-    const playRandom = async () => {
-      const { data } = await api.getFileRandom()
-      store.dispatch('chgAudio', {
-        id: data.id,
-        title: data.title,
-        composer: data.composer_name,
-        isFav: data.is_favorite_by_me,
-      })
-    }
     const playAudio = async (id: string) => {
-      const { data } = await api.getFile(id)
-      store.dispatch('chgAudio', {
-        id: data.id,
-        title: data.title,
-        composer: data.composer_name,
-        isFav: data.is_favorite_by_me,
-      })
+      try {
+        await audios.playAudioById(id)
+      } catch (err) {
+        ElMessage.error({
+          message: `audio play failed: ${err}`,
+          type: 'error',
+        })
+      }
     }
     return {
       playRandom,
