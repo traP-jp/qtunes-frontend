@@ -49,7 +49,7 @@ export default defineComponent({
 
     onMounted(() => {
       const datas = useDatas()
-      datas.setMe(localStorage.getItem('me')!)
+      datas.setMe(sessionStorage.getItem('me')!)
     })
 
     return {
