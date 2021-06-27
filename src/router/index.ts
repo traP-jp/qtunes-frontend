@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import { useDatas } from '../store'
 import { api, redirect2AuthEndpoint } from '../utils/api'
 
 const routes: RouteRecordRaw[] = [
@@ -67,8 +66,6 @@ router.beforeEach(async (to, _, next) => {
     redirect2AuthEndpoint()
   }
 
-  const datas = useDatas()
-  datas.setMe(me!)
   next()
 })
 
