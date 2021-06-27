@@ -9,6 +9,7 @@
         :src="`https://q.trap.jp/api/1.0/public/icon/${traqId}`"
         width="48"
         height="48"
+        draggable="false"
         class="creator-icon"
       />
     </el-col>

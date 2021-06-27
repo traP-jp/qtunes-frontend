@@ -23,6 +23,7 @@
       <el-card v-for="audio in favorites" :key="audio.id" class="fav-container">
         <el-image
           :src="`https://q.trap.jp/api/1.0/public/icon/${audio.userId}`"
+          draggable="false"
           class="fav-image"
           @click="playAudio(audio.id)"
         />

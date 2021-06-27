@@ -2,7 +2,12 @@
   <el-header class="header-container">
     <div class="left-content">
       <router-link to="/">
-        <img src="../../assets/icon.svg" :width="200" class="logo" />
+        <img
+          src="../../assets/icon.svg"
+          :width="200"
+          class="logo"
+          draggable="false"
+        />
       </router-link>
     </div>
     <div class="menu-content">

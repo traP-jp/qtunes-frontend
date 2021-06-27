@@ -6,6 +6,7 @@
           <img
             height="38"
             width="38"
+            draggable="false"
             :src="`https://q.trap.jp/api/1.0/public/icon/${audioInfo.userId}`"
           />
         </router-link>

@@ -15,6 +15,7 @@
       >
         <el-image
           :src="`https://q.trap.jp/api/1.0/public/icon/${userInfo.name}`"
+          draggable="false"
           class="image-content"
         >
           <template #error>
