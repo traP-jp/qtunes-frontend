@@ -20,8 +20,6 @@ const playAudio = (payload: {
   isFav.value = payload.isFav
   time.value = 0
   const loopFlag = audio.value !== null && audio.value.isLoop
-  console.log(loopFlag)
-  console.log(audio.value)
   if (audio.value !== null) {
     audio.value.pause()
     audio.value.broke()
