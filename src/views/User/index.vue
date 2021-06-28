@@ -1,5 +1,5 @@
 <template>
-  <template v-if="userInfo === null">
+  <template v-if="userInfo === null || drawingFiles === null">
     <div class="title-content">
       <i class="el-icon-heavy-rain title-icon" />
       存在しないユーザーです
@@ -57,9 +57,9 @@
               <i class="el-icon-notebook-2 title-icon" />
               All tracks
             </div>
-            <el-row :gutter="12">
+            <el-row v-infinite-scroll="loadFile" :gutter="12">
               <el-col
-                v-for="(file, idx) in userInfo.files"
+                v-for="(file, idx) in drawingFiles"
                 :key="file.id"
                 :lg="12"
                 :span="24"
@@ -120,6 +120,32 @@ export default defineComponent({
       () => fetchUserInfo()
     )
     fetchUserInfo()
+    const drawingFiles: Ref<ModelFile[] | null> = ref([])
+    const drawingCount: Ref<number> = ref(0)
+    const loadFile = () => {
+      if (userInfo.value === null) {
+        drawingFiles.value = null
+        drawingCount.value = 0
+        return
+      }
+      drawingCount.value = Math.min(
+        drawingCount.value + 20,
+        userInfo.value.files.length
+      )
+      drawingFiles.value = userInfo.value.files.slice(0, drawingCount.value)
+    }
+    watch(
+      () => userInfo.value?.files,
+      (newFiles) => {
+        if (newFiles === undefined) {
+          drawingFiles.value = null
+          drawingCount.value = 0
+          return
+        }
+        drawingCount.value = Math.min(drawingCount.value, newFiles.length)
+        drawingFiles.value = newFiles.slice(0, drawingCount.value)
+      }
+    )
     const toggleFav = async (idx: number, value: boolean) => {
       if (userInfo.value === null) {
         console.error('user is empty')
@@ -136,6 +162,8 @@ export default defineComponent({
       name,
       userInfo,
       toggleFav,
+      drawingFiles,
+      loadFile,
     }
   },
 })

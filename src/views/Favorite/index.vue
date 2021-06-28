@@ -1,5 +1,5 @@
 <template>
-  <template v-if="favs === null">
+  <template v-if="favs === null || drawingFavs === null">
     <div class="title-content">
       <i class="el-icon-heavy-rain title-icon" />
       読込中...
@@ -40,9 +40,9 @@
               <i class="el-icon-star-on title-icon" />
               All favs
             </div>
-            <el-row :gutter="12">
+            <el-row v-infinite-scroll="loadFile" :gutter="12">
               <el-col
-                v-for="(file, idx) in favs"
+                v-for="(file, idx) in drawingFavs"
                 :key="file.id"
                 :lg="12"
                 :span="24"
@@ -66,9 +66,10 @@
 
 <script lang="ts">
 import { ElMessage } from 'element-plus'
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref, Ref, watch } from 'vue'
 import FileElement from '../../components/FileElement.vue'
 import { useDatas } from '../../store'
+import { File } from '../../store/types'
 
 export default defineComponent({
   name: 'User',
@@ -81,15 +82,40 @@ export default defineComponent({
     const favs = computed(() =>
       datas.favs.value === null
         ? null
-        : datas.favs.value.map((data) => ({
-            id: data.id,
-            userId: data.composer_name,
-            title: data.title,
-            isFav: data.is_favorite_by_me,
-            createdAt: data.created_at,
-          }))
+        : datas.favs.value.map(
+            (data): File => ({
+              id: data.id,
+              userId: data.composer_name!,
+              title: data.title!,
+              isFav: data.is_favorite_by_me,
+              createdAt: data.created_at,
+            })
+          )
     )
     datas.fetchFavs()
+    const drawingFavs: Ref<File[] | null> = ref([])
+    const drawingCount: Ref<number> = ref(0)
+    const loadFile = () => {
+      if (favs.value === null) {
+        drawingFavs.value = null
+        drawingCount.value = 0
+        return
+      }
+      drawingCount.value = Math.min(drawingCount.value + 20, favs.value.length)
+      drawingFavs.value = favs.value.slice(0, drawingCount.value)
+    }
+    watch(
+      () => favs,
+      (newFavs) => {
+        if (newFavs.value === null) {
+          drawingFavs.value = null
+          drawingCount.value = 0
+          return
+        }
+        drawingCount.value = Math.min(drawingCount.value, newFavs.value.length)
+        drawingFavs.value = newFavs.value.slice(0, drawingCount.value)
+      }
+    )
     const toggleFav = async (idx: number, value: boolean) => {
       try {
         await datas.updateFavsFav(idx, value)
@@ -104,6 +130,8 @@ export default defineComponent({
       myId,
       favs,
       toggleFav,
+      drawingFavs,
+      loadFile,
     }
   },
 })
