@@ -151,7 +151,7 @@ export default defineComponent({
       }
     }
 
-    const composersLink = computed(() => `/users/${audios.userId}`)
+    const composersLink = computed(() => `/users/${audioInfo.value.userId}`)
 
     const hotShort: HotKey[] = [
       {
