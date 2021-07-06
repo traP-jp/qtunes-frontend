@@ -81,9 +81,6 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
 
   const broke = () => {
     audio.pause()
-    audio.removeEventListener('durationchange', (_event) => {
-      maxTime.value = audio.duration
-    })
     audio.removeEventListener('timeupdate', timeUpdateHandler)
     audio.removeEventListener('ended', endedHandler)
   }
