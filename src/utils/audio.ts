@@ -53,7 +53,7 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
   }
 
   const maxTime = ref(audio.duration)
-  audio.ondurationchange = (_event) => {
+  audio.onloadedmetadata = (_event) => {
     maxTime.value = audio.duration
   }
 
