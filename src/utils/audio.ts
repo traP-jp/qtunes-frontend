@@ -62,6 +62,9 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
   }
 
   const timeUpdateHandler = (_event: Event) => {
+    if (audio.seeking) {
+      return
+    }
     options.timeUpdate(audio.currentTime)
   }
   const endedHandler = (_event: Event) => {
