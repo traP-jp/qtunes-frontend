@@ -53,9 +53,9 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
   }
 
   const maxTime = ref(audio.duration)
-  audio.addEventListener('durationchange', (_event) => {
+  audio.ondurationchange = (_event) => {
     maxTime.value = audio.duration
-  })
+  }
 
   const setTime = (nxtTime: number) => {
     audio.currentTime = nxtTime
