@@ -70,8 +70,12 @@ export class Apis {
     return axios.post('/api/oauth/logout')
   }
 
-  downloadFileLink(id: string): string {
+  generateFileLink(id: string): string {
     return `/api/files/${id}/download`
+  }
+
+  generateMessageLink(id: string): string {
+    return `https://q.trap.jp/messages/${id}`
   }
 }
 export const api = new Apis()
