@@ -202,6 +202,9 @@ export default defineComponent({
       flex-shrink: 1;
       & > a {
         text-decoration-line: none;
+        &:hover {
+          text-decoration-line: underline;
+        }
       }
       .sound-title {
         overflow: hidden;

@@ -164,6 +164,9 @@ export default defineComponent({
     margin-left: 16px;
     & > a {
       text-decoration-line: none;
+      &:hover {
+        text-decoration-line: underline;
+      }
     }
     .sound-title,
     .sound-composer {
@@ -179,7 +182,6 @@ export default defineComponent({
       font-size: 12px;
       line-height: 16px;
       color: #909399;
-      text-decoration-line: none;
     }
   }
   .buttons-container {
