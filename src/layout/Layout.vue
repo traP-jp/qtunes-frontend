@@ -22,9 +22,11 @@
         :height="isPlaying ? '80px' : '0px'"
         style="visibility: hidden"
       />
-      <div v-if="isPlaying" class="el-footer fixed-footer" height="80px">
-        <LayoutPlayer />
-      </div>
+      <transition name="el-zoom-in-bottom">
+        <div v-if="isPlaying" class="el-footer fixed-footer" height="80px">
+          <LayoutPlayer />
+        </div>
+      </transition>
     </el-container>
   </div>
 </template>

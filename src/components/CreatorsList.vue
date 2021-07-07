@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, watch } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { api } from '../utils/api'
+import { useDatas } from '../store'
 import CreatorElement from './CreatorElement.vue'
 
 export default defineComponent({
@@ -25,8 +25,11 @@ export default defineComponent({
     CreatorElement,
   },
   setup() {
-    const composers: Ref<string[] | null> = ref(null)
     const route = useRoute()
+    const datas = useDatas()
+    const composers = computed(
+      () => datas.composers.value?.map((composer) => composer.name) ?? null
+    )
     const activeIndex = ref(route.path)
     watch(
       () => route.path,
@@ -34,15 +37,7 @@ export default defineComponent({
         activeIndex.value = route.path
       }
     )
-    const fetchCreators = async () => {
-      try {
-        const { data } = await api.getComposers()
-        composers.value = data.map((composer) => composer.name)
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchCreators()
+    datas.fetchComposers()
     return {
       composers,
       activeIndex,

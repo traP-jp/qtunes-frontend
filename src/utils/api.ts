@@ -1,5 +1,5 @@
 import axios, { AxiosPromise } from 'axios'
-import { Code, Composer, ModelFile, User, UserMe } from '../lib/apis/generated'
+import { Code, Composer, ModelFile, User, UsersMe } from '../lib/apis/generated'
 
 export const traQBaseURL = 'https://q.trap.jp/api/v3'
 // export const api = new Apis(
@@ -16,7 +16,7 @@ export class Apis {
     return axios.get(`/api/users/${id}`)
   }
 
-  getMe(): AxiosPromise<UserMe> {
+  getMe(): AxiosPromise<UsersMe> {
     return axios.get('/api/users/me')
   }
 
@@ -70,8 +70,12 @@ export class Apis {
     return axios.post('/api/oauth/logout')
   }
 
-  downloadFileLink(id: string): string {
+  generateFileLink(id: string): string {
     return `/api/files/${id}/download`
+  }
+
+  generateMessageLink(id: string): string {
+    return `https://q.trap.jp/messages/${id}`
   }
 }
 export const api = new Apis()

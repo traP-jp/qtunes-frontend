@@ -14,11 +14,8 @@
         Latest track
       </div>
       <FileElement
-        :key="files[0].id"
-        :title="files[0].title"
-        :user-id="files[0].userId"
-        :audio-id="files[0].id"
-        :is-fav="files[0].isFav"
+        :key="files[0].audioId"
+        :info="files[0]"
         @toggleFav="toggleFav(0, $event)"
       />
     </div>
@@ -30,18 +27,12 @@
       <el-row v-infinite-scroll="loadFile" :gutter="12">
         <el-col
           v-for="(file, idx) in drawingFiles"
-          :key="file.id"
+          :key="file.audioId"
           :md="12"
           :span="24"
           class="file-element-col"
         >
-          <FileElement
-            :title="file.title"
-            :user-id="file.userId"
-            :audio-id="file.id"
-            :is-fav="file.isFav"
-            @toggleFav="toggleFav(idx, $event)"
-          />
+          <FileElement :info="file" @toggleFav="toggleFav(idx, $event)" />
         </el-col>
       </el-row>
     </div>
@@ -51,16 +42,8 @@
 <script lang="ts">
 import { ElMessage } from 'element-plus'
 import { computed, defineComponent, Ref, ref, watch } from 'vue'
-import FileElement from '../../components/FileElement.vue'
+import FileElement, { FileElementProps } from '../../components/FileElement.vue'
 import { useDatas } from '../../store'
-
-interface File {
-  id: string
-  title: string
-  userId: string
-  isFav: boolean
-  createdAt?: string
-}
 
 export default defineComponent({
   name: 'Files',
@@ -69,21 +52,19 @@ export default defineComponent({
   },
   setup() {
     const datas = useDatas()
-    const files = computed(() =>
+    const files = computed((): FileElementProps[] | null =>
       datas.files.value === null
         ? null
-        : datas.files.value.map(
-            (data): File => ({
-              id: data.id,
-              userId: data.composer_name!,
-              title: data.title!,
-              isFav: data.is_favorite_by_me,
-              createdAt: data.created_at,
-            })
-          )
+        : datas.files.value.map((data) => ({
+            audioId: data.id,
+            messageId: data.message_id,
+            userId: data.composer_name,
+            title: data.title,
+            isFav: data.is_favorite_by_me,
+          }))
     )
     datas.fetchFiles()
-    const drawingFiles: Ref<File[] | null> = ref([])
+    const drawingFiles: Ref<FileElementProps[] | null> = ref([])
     const drawingCount: Ref<number> = ref(0)
     const loadFile = () => {
       if (files.value === null) {

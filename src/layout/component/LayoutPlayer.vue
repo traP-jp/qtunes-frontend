@@ -151,7 +151,7 @@ export default defineComponent({
       }
     }
 
-    const composersLink = computed(() => `/users/${audios.userId}`)
+    const composersLink = computed(() => `/users/${audioInfo.value.userId}`)
 
     const hotShort: HotKey[] = [
       {
@@ -202,6 +202,9 @@ export default defineComponent({
       flex-shrink: 1;
       & > a {
         text-decoration-line: none;
+        &:hover {
+          text-decoration-line: underline;
+        }
       }
       .sound-title {
         overflow: hidden;

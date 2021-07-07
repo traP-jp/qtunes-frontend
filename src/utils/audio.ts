@@ -8,7 +8,7 @@ interface AudioElementOptions {
 
 export type AudioElement = ReturnType<typeof createAudioElement>
 const createAudioElement = (id: string, options: AudioElementOptions) => {
-  const audio = new Audio(api.downloadFileLink(id))
+  const audio = new Audio(api.generateFileLink(id))
   // const audio = new Audio('http://www.hmix.net/music/n/n148.mp3') // for test
 
   audio.load()
@@ -53,15 +53,18 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
   }
 
   const maxTime = ref(audio.duration)
-  audio.addEventListener('durationchange', (_event) => {
+  audio.onloadedmetadata = (_event) => {
     maxTime.value = audio.duration
-  })
+  }
 
   const setTime = (nxtTime: number) => {
     audio.currentTime = nxtTime
   }
 
   const timeUpdateHandler = (_event: Event) => {
+    if (audio.seeking) {
+      return
+    }
     options.timeUpdate(audio.currentTime)
   }
   const endedHandler = (_event: Event) => {
@@ -78,9 +81,6 @@ const createAudioElement = (id: string, options: AudioElementOptions) => {
 
   const broke = () => {
     audio.pause()
-    audio.removeEventListener('durationchange', (_event) => {
-      maxTime.value = audio.duration
-    })
     audio.removeEventListener('timeupdate', timeUpdateHandler)
     audio.removeEventListener('ended', endedHandler)
   }

@@ -43,18 +43,12 @@
             <el-row v-infinite-scroll="loadFile" :gutter="12">
               <el-col
                 v-for="(file, idx) in drawingFavs"
-                :key="file.id"
+                :key="file.audioId"
                 :lg="12"
                 :span="24"
                 class="file-element-col"
               >
-                <FileElement
-                  :title="file.title"
-                  :user-id="file.userId"
-                  :audio-id="file.id"
-                  :is-fav="file.isFav"
-                  @toggleFav="toggleFav(idx, $event)"
-                />
+                <FileElement :info="file" @toggleFav="toggleFav(idx, $event)" />
               </el-col>
             </el-row>
           </div>
@@ -67,9 +61,8 @@
 <script lang="ts">
 import { ElMessage } from 'element-plus'
 import { defineComponent, computed, ref, Ref, watch } from 'vue'
-import FileElement from '../../components/FileElement.vue'
+import FileElement, { FileElementProps } from '../../components/FileElement.vue'
 import { useDatas } from '../../store'
-import { File } from '../../store/types'
 
 export default defineComponent({
   name: 'User',
@@ -79,21 +72,19 @@ export default defineComponent({
   setup() {
     const datas = useDatas()
     const myId = computed(() => datas.me.value)
-    const favs = computed(() =>
+    const favs = computed((): FileElementProps[] | null =>
       datas.favs.value === null
         ? null
-        : datas.favs.value.map(
-            (data): File => ({
-              id: data.id,
-              userId: data.composer_name!,
-              title: data.title!,
-              isFav: data.is_favorite_by_me,
-              createdAt: data.created_at,
-            })
-          )
+        : datas.favs.value.map((data) => ({
+            audioId: data.id,
+            messageId: data.message_id,
+            userId: data.composer_name,
+            title: data.title,
+            isFav: data.is_favorite_by_me,
+          }))
     )
     datas.fetchFavs()
-    const drawingFavs: Ref<File[] | null> = ref([])
+    const drawingFavs: Ref<FileElementProps[] | null> = ref([])
     const drawingCount: Ref<number> = ref(0)
     const loadFile = () => {
       if (favs.value === null) {

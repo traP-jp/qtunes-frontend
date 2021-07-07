@@ -59,8 +59,8 @@ export default defineComponent({
         ? null
         : datas.favs.value.map((data) => ({
             id: data.id,
-            userId: data.composer_name!,
-            title: data.title!,
+            userId: data.composer_name,
+            title: data.title,
             isFav: data.is_favorite_by_me,
           }))
     )
