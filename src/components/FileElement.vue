@@ -8,20 +8,22 @@
       <el-col :span="19" class="left-content">
         <BigIconButton icon="el-icon-video-play" @click="chgAudio" />
         <div class="audio-info-container">
-          <el-tooltip :content="title" placement="top" :show-after="500">
+          <el-tooltip :content="info.title" placement="top" :show-after="500">
             <div class="sound-title">
-              {{ title }}
+              {{ info.title }}
             </div>
           </el-tooltip>
-          <router-link :to="`/users/${userId}`">
+          <router-link :to="`/users/${info.userId}`">
             <div class="sound-composer">
-              {{ createdAt.length === 0 ? userId : formatedCreatedAt }}
+              {{
+                info.createdAt === undefined ? info.userId : formatedCreatedAt
+              }}
             </div>
           </router-link>
         </div>
       </el-col>
       <el-col :span="5" class="buttons-container">
-        <FavButton :is-fav="isFav" @click="toggleFav" />
+        <FavButton :is-fav="info.isFav" @click="toggleFav" />
         <BigIconButton icon="el-icon-top-right" @click="openFileLink" />
       </el-col>
     </el-row>
@@ -29,34 +31,28 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import { useAudios } from '../store'
+import { api } from '../utils/api'
 import BigIconButton from './BigIconButton.vue'
 import FavButton from '/@/components/FavButton.vue'
+
+export interface FileElementProps {
+  title: string
+  userId: string
+  audioId: string
+  messageId: string
+  isFav: boolean
+  createdAt?: string
+}
 
 export default defineComponent({
   name: 'FileElement',
   components: { BigIconButton, FavButton },
   props: {
-    title: {
-      type: String,
+    info: {
+      type: Object as PropType<FileElementProps>,
       required: true,
-    },
-    userId: {
-      type: String,
-      required: true,
-    },
-    audioId: {
-      type: String,
-      required: true,
-    },
-    isFav: {
-      type: Boolean,
-      required: true,
-    },
-    createdAt: {
-      type: String,
-      default: '',
     },
   },
   emits: {
@@ -68,23 +64,23 @@ export default defineComponent({
     const audios = useAudios()
     const chgAudio = () => {
       audios.playAudio({
-        id: props.audioId,
-        title: props.title,
-        userId: props.userId,
-        isFav: props.isFav,
+        id: props.info.audioId,
+        title: props.info.title,
+        userId: props.info.userId,
+        isFav: props.info.isFav,
       })
     }
     const toggleFav = () => {
-      emit('toggleFav', !props.isFav)
+      emit('toggleFav', !props.info.isFav)
     }
     const openFileLink = () => {
-      window.open(`https://q.trap.jp/files/${props.audioId}`)
+      window.open(api.generateMessageLink(props.info.messageId))
     }
     const formatedCreatedAt = computed(() => {
-      if (props.createdAt.length === 0) {
-        return ''
+      if (props.info.createdAt === undefined) {
+        return null
       }
-      return props.createdAt.slice(0, 10)
+      return props.info.createdAt.slice(0, 10)
     })
     return {
       toggleFav,

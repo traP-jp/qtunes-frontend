@@ -43,18 +43,12 @@
             <el-row :gutter="12">
               <el-col
                 v-for="(file, idx) in favs"
-                :key="file.id"
+                :key="file.audioId"
                 :lg="12"
                 :span="24"
                 class="file-element-col"
               >
-                <FileElement
-                  :title="file.title"
-                  :user-id="file.userId"
-                  :audio-id="file.id"
-                  :is-fav="file.isFav"
-                  @toggleFav="toggleFav(idx, $event)"
-                />
+                <FileElement :info="file" @toggleFav="toggleFav(idx, $event)" />
               </el-col>
             </el-row>
           </div>
@@ -67,7 +61,7 @@
 <script lang="ts">
 import { ElMessage } from 'element-plus'
 import { defineComponent, computed } from 'vue'
-import FileElement from '../../components/FileElement.vue'
+import FileElement, { FileElementProps } from '../../components/FileElement.vue'
 import { useDatas } from '../../store'
 
 export default defineComponent({
@@ -78,15 +72,15 @@ export default defineComponent({
   setup() {
     const datas = useDatas()
     const myId = computed(() => datas.me.value)
-    const favs = computed(() =>
+    const favs = computed((): FileElementProps[] | null =>
       datas.favs.value === null
         ? null
         : datas.favs.value.map((data) => ({
-            id: data.id,
+            audioId: data.id,
+            messageId: data.message_id,
             userId: data.composer_name,
             title: data.title,
             isFav: data.is_favorite_by_me,
-            createdAt: data.created_at,
           }))
     )
     datas.fetchFavs()

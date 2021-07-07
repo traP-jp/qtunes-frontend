@@ -38,13 +38,14 @@ const playAudio = (payload: {
     audio.value.toggleLoop()
   }
   audio.value.play()
+  document.title = `${title.value} / ${userId.value} | Qtunes`
 }
 const playAudioById = async (nxtId: string) => {
   const { data } = await api.getFile(nxtId)
   playAudio({
     id: data.id,
-    title: data.title!,
-    userId: data.composer_name!,
+    title: data.title,
+    userId: data.composer_name,
     isFav: data.is_favorite_by_me,
   })
 }
@@ -58,8 +59,8 @@ const playRandom = async () => {
   // } // for test
   playAudio({
     id: data.id,
-    title: data.title!,
-    userId: data.composer_name!,
+    title: data.title,
+    userId: data.composer_name,
     isFav: data.is_favorite_by_me,
   })
 }
