@@ -43,12 +43,8 @@
               Latest track
             </div>
             <FileElement
-              :key="userInfo.files[0].id"
-              :title="userInfo.files[0].title"
-              :user-id="userInfo.files[0].composer_name"
-              :audio-id="userInfo.files[0].id"
-              :created-at="userInfo.files[0].created_at"
-              :is-fav="userInfo.files[0].is_favorite_by_me"
+              :key="userInfo.files[0].audioId"
+              :info="userInfo.files[0]"
               @toggleFav="toggleFav(0, $event)"
             />
           </div>
@@ -60,19 +56,12 @@
             <el-row :gutter="12">
               <el-col
                 v-for="(file, idx) in userInfo.files"
-                :key="file.id"
+                :key="file.audioId"
                 :lg="12"
                 :span="24"
                 class="file-element-col"
               >
-                <FileElement
-                  :title="file.title"
-                  :user-id="file.composer_name"
-                  :audio-id="file.id"
-                  :created-at="file.created_at"
-                  :is-fav="file.is_favorite_by_me"
-                  @toggleFav="toggleFav(idx, $event)"
-                />
+                <FileElement :info="file" @toggleFav="toggleFav(idx, $event)" />
               </el-col>
             </el-row>
           </div>
@@ -85,8 +74,8 @@
 <script lang="ts">
 import { ref, defineComponent, Ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import FileElement from '../../components/FileElement.vue'
-import { Composer, ModelFile } from '../../lib/apis/generated'
+import FileElement, { FileElementProps } from '../../components/FileElement.vue'
+import { Composer } from '../../lib/apis/generated'
 import { api } from '../../utils/api'
 
 export default defineComponent({
@@ -97,13 +86,22 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const name = computed(() => route.params.userId as string)
-    const userInfo: Ref<(Composer & { files: ModelFile[] }) | null> = ref(null)
+    const userInfo: Ref<(Composer & { files: FileElementProps[] }) | null> =
+      ref(null)
     const fetchUserInfo = async () => {
       try {
         const { data: info } = await api.getComposerByName(name.value)
-        let files: ModelFile[] = []
+        let files: FileElementProps[] = []
         try {
-          ;({ data: files } = await api.getComposerFiles(info.id))
+          const { data: datas } = await api.getComposerFiles(info.id)
+          files = datas.map((data) => ({
+            audioId: data.id,
+            messageId: data.message_id,
+            userId: data.composer_name,
+            title: data.title,
+            isFav: data.is_favorite_by_me,
+            createdAt: data.created_at,
+          }))
         } catch (err) {
           console.error(err)
         }
@@ -126,8 +124,8 @@ export default defineComponent({
         return
       }
       try {
-        await api.putFileFavorite(userInfo.value.files[idx].id, value)
-        userInfo.value.files[idx].is_favorite_by_me = value
+        await api.putFileFavorite(userInfo.value.files[idx].audioId, value)
+        userInfo.value.files[idx].isFav = value
       } catch (err) {
         console.error(err)
       }
