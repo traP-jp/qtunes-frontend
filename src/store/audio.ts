@@ -38,6 +38,7 @@ const playAudio = (payload: {
     audio.value.toggleLoop()
   }
   audio.value.play()
+  document.title = `${title.value} / ${userId.value} | Qtunes`
 }
 const playAudioById = async (nxtId: string) => {
   const { data } = await api.getFile(nxtId)
