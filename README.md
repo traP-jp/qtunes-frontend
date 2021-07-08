@@ -18,4 +18,5 @@
 
 ## api 生成
 
-`npm run gen-api` (未実装)
+`npm run gen-api`
+(java の環境が必要です)
