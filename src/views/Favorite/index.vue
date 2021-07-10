@@ -72,6 +72,7 @@ export default defineComponent({
   setup() {
     const datas = useDatas()
     const myId = computed(() => datas.me.value)
+    datas.fetchMeFromStorage()
     const favs = computed((): FileElementProps[] | null =>
       datas.favs.value === null
         ? null

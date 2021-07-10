@@ -32,9 +32,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent } from 'vue'
 import CreatorsList from '../components/CreatorsList.vue'
-import { useAudios, useDatas } from '../store'
+import { useAudios } from '../store'
 import LayoutHeader from './component/LayoutHeader.vue'
 import LayoutPlayer from './component/LayoutPlayer.vue'
 
@@ -48,11 +48,6 @@ export default defineComponent({
   setup() {
     const audios = useAudios()
     const isPlaying = computed(() => audios.id.value !== null)
-
-    onMounted(() => {
-      const datas = useDatas()
-      datas.setMe(sessionStorage.getItem('me')!)
-    })
 
     return {
       isPlaying,
