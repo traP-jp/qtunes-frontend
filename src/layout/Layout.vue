@@ -1,29 +1,37 @@
 <template>
   <div id="app">
     <el-container class="layout-container">
-      <LayoutHeader />
+      <LayoutHeader v-if="!isMobile" />
       <el-container>
-        <el-aside class="aside-content">
+        <el-aside v-if="!isMobile" class="aside-content">
           <el-scrollbar
-            :height="isPlaying ? 'calc(100vh - 140px)' : 'calc(100vh - 60px)'"
+            :height="`calc(100vh - ${footerHeight + isMobile ? 0 : 60}px)`"
           >
             <CreatorsList />
           </el-scrollbar>
         </el-aside>
         <el-main class="main-content">
           <el-scrollbar
-            :height="isPlaying ? 'calc(100vh - 180px)' : 'calc(100vh - 100px)'"
+            :height="`calc(100vh-${footerHeight + 20 + isMobile ? 0 : 60}px`"
           >
             <slot />
           </el-scrollbar>
         </el-main>
       </el-container>
-      <el-footer
-        :height="isPlaying ? '80px' : '0px'"
-        style="visibility: hidden"
-      />
+      <el-footer :height="footerHeight" style="visibility: hidden" />
+      <div
+        v-if="isMobile"
+        class="el-footer fixed-footer mobile-menu"
+        height="60px"
+      >
+        <LayoutMobileMenu />
+      </div>
       <transition name="el-zoom-in-bottom">
-        <div v-if="isPlaying" class="el-footer fixed-footer" height="80px">
+        <div
+          v-if="isPlaying"
+          :class="`el-footer fixed-footer${isMobile ? ' mobile-player' : ''}`"
+          height="80px"
+        >
           <LayoutPlayer />
         </div>
       </transition>
@@ -34,9 +42,10 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted } from 'vue'
 import CreatorsList from '../components/CreatorsList.vue'
-import { useAudios, useDatas } from '../store'
+import { useAudios, useDatas, useTerminalOptions } from '../store'
 import LayoutHeader from './component/LayoutHeader.vue'
 import LayoutPlayer from './component/LayoutPlayer.vue'
+import LayoutMobileMenu from './component/LayoutMobileMenu.vue'
 
 export default defineComponent({
   name: 'Layout',
@@ -44,10 +53,27 @@ export default defineComponent({
     CreatorsList,
     LayoutHeader,
     LayoutPlayer,
+    LayoutMobileMenu,
   },
   setup() {
     const audios = useAudios()
+    const terminalOptions = useTerminalOptions()
     const isPlaying = computed(() => audios.id.value !== null)
+    const isMobile = computed(
+      () => terminalOptions.usingTerminal.value === 'mobile'
+    )
+    const footerHeight = computed(() => {
+      let height = 0
+      if (isMobile.value) {
+        height += 60
+        if (isPlaying.value) {
+          height += 60
+        }
+      } else if (isPlaying.value) {
+        height = 80
+      }
+      return `${height}px`
+    })
 
     onMounted(() => {
       const datas = useDatas()
@@ -55,7 +81,9 @@ export default defineComponent({
     })
 
     return {
+      footerHeight,
       isPlaying,
+      isMobile,
     }
   },
 })
@@ -65,6 +93,9 @@ export default defineComponent({
 .layout-container {
   height: 100vh;
   width: 100vw;
+  .main-content {
+    padding-bottom: 0;
+  }
 }
 
 .fixed-footer {
@@ -73,5 +104,13 @@ export default defineComponent({
   // height: auto;
   width: 100vw;
   background-color: white;
+}
+.mobile-player {
+  bottom: 60px;
+  padding: 0;
+}
+
+.mobile-menu {
+  padding: 0;
 }
 </style>
