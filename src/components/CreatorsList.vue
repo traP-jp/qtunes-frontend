@@ -3,7 +3,12 @@
     <i class="el-icon-heavy-rain" />
     <span> 読込中... </span>
   </div>
-  <el-menu v-else router :default-active="activeIndex">
+  <el-menu
+    v-else
+    router
+    :default-active="activeIndex"
+    :class="hideBorder ? 'hide-border' : ''"
+  >
     <CreatorElement
       v-for="composer in composers"
       :key="composer"
@@ -23,6 +28,12 @@ export default defineComponent({
   name: 'CreatorsList',
   components: {
     CreatorElement,
+  },
+  props: {
+    hideBorder: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup() {
     const route = useRoute()
@@ -46,4 +57,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scopped></style>
+<style lang="scss" scopped>
+.hide-border {
+  border-right: 0 !important;
+}
+</style>
