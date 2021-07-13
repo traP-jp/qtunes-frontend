@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <el-container class="layout-container">
+      <!-- TODO: レイアウト配置をいい感じにする (scrollbar の height 指定とかちょっとキモい fixed とか) -->
       <LayoutHeader v-if="!isMobile" />
       <el-container>
         <el-aside v-if="!isMobile" class="aside-content">
@@ -18,6 +19,7 @@
           </el-scrollbar>
         </el-main>
       </el-container>
+      <!-- element ui のレイアウトの関係で見た目上の footer に合わせるために見えない footer を置いてる -->
       <el-footer :height="footerHeight" style="visibility: hidden" />
       <div
         v-if="isMobile"
@@ -32,6 +34,8 @@
           :class="`el-footer fixed-footer${isMobile ? ' mobile-player' : ''}`"
           height="80px"
         >
+          <!-- mobile => 60px, other => 80px -->
+          <!-- TODO: height は js で変える (css じゃなくて) -->
           <LayoutPlayer />
         </div>
       </transition>
@@ -62,6 +66,9 @@ export default defineComponent({
     const isMobile = computed(
       () => terminalOptions.usingTerminal.value === 'mobile'
     )
+    // 見た目上の footer の高さを調整する
+    // mobile のときは menu = 60px, player = 60px を足したりたさなかったりする
+    // pc のときは player = 80px
     const footerHeight = computed(() => {
       let height = 0
       if (isMobile.value) {
