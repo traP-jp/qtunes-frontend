@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, Ref, computed, watch } from 'vue'
+import { ref, defineComponent, Ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import FileElement, { FileElementProps } from '../../components/FileElement.vue'
 import { Composer } from '../../lib/apis/generated'
@@ -113,11 +113,9 @@ export default defineComponent({
         console.error(err)
       }
     }
-    watch(
-      () => name.value,
-      () => fetchUserInfo()
-    )
-    fetchUserInfo()
+    onMounted(() => {
+      fetchUserInfo()
+    })
     const drawingFiles: Ref<FileElementProps[] | null> = ref([])
     const drawingCount: Ref<number> = ref(0)
     const loadFile = () => {
@@ -132,18 +130,6 @@ export default defineComponent({
       )
       drawingFiles.value = userInfo.value.files.slice(0, drawingCount.value)
     }
-    watch(
-      () => userInfo.value?.files,
-      (newFiles) => {
-        if (newFiles === undefined) {
-          drawingFiles.value = null
-          drawingCount.value = 0
-          return
-        }
-        drawingCount.value = Math.min(drawingCount.value, newFiles.length)
-        drawingFiles.value = newFiles.slice(0, drawingCount.value)
-      }
-    )
     const toggleFav = async (idx: number, value: boolean) => {
       if (userInfo.value === null) {
         console.error('user is empty')
