@@ -4,7 +4,7 @@
       <i class="el-icon-refresh-right title-icon" />
       Random
     </div>
-    <el-card class="random-container" @click="playRandom">
+    <el-card shadow="hover" class="random-container" @click="playRandom">
       <BigIconButton
         icon="el-icon-video-play"
         class="random-content"
@@ -102,6 +102,11 @@ export default defineComponent({
   min-width: min(100%, 480px);
   position: relative;
   box-sizing: border-box;
+  background: linear-gradient(
+    to bottom right,
+    rgb(249, 218, 209),
+    rgb(253, 236, 236)
+  );
   .random-content {
     position: absolute;
     top: 0;
@@ -111,6 +116,7 @@ export default defineComponent({
     margin: auto;
     height: 48px;
     width: 48px;
+    background-color: transparent;
   }
 }
 .title-content {
