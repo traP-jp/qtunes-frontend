@@ -44,9 +44,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent } from 'vue'
 import CreatorsList from '../components/CreatorsList.vue'
-import { useAudios, useDatas, useTerminalOptions } from '../store'
+import { useAudios, useTerminalOptions } from '../store'
 import LayoutHeader from './component/LayoutHeader.vue'
 import LayoutPlayer from './component/LayoutPlayer.vue'
 import LayoutMobileMenu from './component/LayoutMobileMenu.vue'
@@ -80,11 +80,6 @@ export default defineComponent({
         height = 80
       }
       return `${height}px`
-    })
-
-    onMounted(() => {
-      const datas = useDatas()
-      datas.setMe(sessionStorage.getItem('me')!)
     })
 
     return {

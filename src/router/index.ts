@@ -60,7 +60,7 @@ router.beforeEach(async (to, _, next) => {
     try {
       const { data } = await api.getMe()
       me = data.name
-      sessionStorage.setItem('me', data.name)
+      sessionStorage.setItem('me', me)
     } catch (err) {
       const e: AxiosError = err
       console.error(e)

@@ -6,21 +6,32 @@ const me: Ref<string | null> = ref(null)
 const setMe = (value: string) => {
   me.value = value
 }
+const fetchMeFromStorage = () => {
+  const val = sessionStorage.getItem('me')
+  if (val === null) {
+    return
+  }
+  me.value = val
+}
+
 const composers: Ref<Composer[] | null> = ref(null)
 const fetchComposers = async () => {
   const { data } = await api.getComposers()
   composers.value = data
 }
+
 const favs: Ref<ModelFile[] | null> = ref(null)
 const fetchFavs = async () => {
   const { data } = await api.getMyFavorites()
   favs.value = data
 }
+
 const files: Ref<ModelFile[] | null> = ref(null)
 const fetchFiles = async () => {
   const { data } = await api.getFiles()
   files.value = data
 }
+
 const updateFavsFav = async (idx: number, nxt: boolean) => {
   if (favs.value === null) {
     throw Error('Favs is not set !')
@@ -42,6 +53,7 @@ export const datasStore = {
   favs: readonly(favs),
   files: readonly(files),
   setMe,
+  fetchMeFromStorage,
   fetchComposers,
   fetchFavs,
   fetchFiles,

@@ -1,6 +1,7 @@
 <template>
   <Layout>
-    <router-view />
+    <!-- 違う人のユーザーページにアクセスした時、infinite-scroll の関係でリレンダリングしてほしいから key つけてる -->
+    <router-view :key="$route.path" />
   </Layout>
 </template>
 
