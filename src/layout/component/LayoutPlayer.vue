@@ -1,5 +1,38 @@
 <template>
-  <div>
+  <div v-if="isMobile">
+    <el-progress
+      :percentage="Math.ceil((nowPos / musicLength) * 100)"
+      :show-text="false"
+    />
+    <div class="mobile-all-container">
+      <el-image
+        style="width: 54px; height: 54px"
+        class="mobile-image"
+        draggable="false"
+        :src="`https://q.trap.jp/api/1.0/public/icon/${audioInfo.userId}`"
+      />
+      <div class="mobile-infos-container">
+        <div class="info-container">
+          <div class="sound-title">
+            {{ audioInfo.title }}
+          </div>
+          <router-link :to="composersLink">
+            <div class="sound-composer">
+              {{ audioInfo.userId }}
+            </div>
+          </router-link>
+        </div>
+        <div class="mobile-button-container">
+          <FavButton :is-fav="audioInfo.isFav" @click="toggleFav" />
+          <BigIconButton
+            :icon="isPlayed ? 'el-icon-video-pause' : 'el-icon-video-play'"
+            @click="togglePlay"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else>
     <el-row class="player-container">
       <el-col :span="4" class="all-info-container">
         <router-link :to="composersLink">
@@ -76,7 +109,7 @@
 <script lang="ts">
 import { ref, computed, defineComponent, onMounted, watch } from 'vue'
 import useHotKey, { HotKey } from 'vue3-hotkey'
-import { useAudios } from '../../store'
+import { useAudios, useTerminalOptions } from '../../store'
 import BigIconButton from '/@/components/BigIconButton.vue'
 import FavButton from '/@/components/FavButton.vue'
 import { ElMessage } from 'element-plus'
@@ -88,6 +121,10 @@ export default defineComponent({
     FavButton,
   },
   setup() {
+    const terminalOptions = useTerminalOptions()
+    const isMobile = computed(
+      () => terminalOptions.usingTerminal.value === 'mobile'
+    )
     const audios = useAudios()
     const nowPos = ref(0)
     const audioInfo = computed(() => ({
@@ -168,6 +205,7 @@ export default defineComponent({
     // TODO: 検索実装するときにバグる気がする
 
     return {
+      isMobile,
       audio,
       audioInfo,
       musicLength,
@@ -186,6 +224,53 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.mobile-all-container {
+  display: flex;
+  .mobile-image {
+    flex-shrink: 0;
+  }
+  .mobile-infos-container {
+    display: flex;
+    overflow: hidden;
+    flex-grow: 2;
+    flex-shrink: 2;
+    .info-container {
+      overflow: hidden;
+      flex-shrink: 4;
+      margin: auto 0;
+      & > a {
+        text-decoration-line: none;
+        &:hover {
+          text-decoration-line: underline;
+        }
+      }
+      & > div {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .sound-title {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      .sound-composer {
+        font-size: 14px;
+        line-height: 20px;
+        color: #909399;
+      }
+    }
+    .mobile-button-container {
+      flex-shrink: 0;
+      margin: {
+        left: auto;
+        top: auto;
+        bottom: auto;
+      }
+      width: 82px;
+    }
+  }
+}
+
 .player-container {
   padding: {
     top: 16px;
