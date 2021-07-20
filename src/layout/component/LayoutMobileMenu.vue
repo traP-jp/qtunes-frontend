@@ -34,16 +34,16 @@ export default defineComponent({
         icon: 'el-icon-s-home',
       },
       {
-        route: '/favorite',
-        icon: 'el-icon-star-on',
-      },
-      {
         route: '/files',
         icon: 'el-icon-folder',
       },
       {
         route: '/users',
         icon: 'el-icon-user',
+      },
+      {
+        route: '/favorite',
+        icon: 'el-icon-star-on',
       },
     ]
     return {
