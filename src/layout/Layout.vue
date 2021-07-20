@@ -11,7 +11,7 @@
             <CreatorsList />
           </el-scrollbar>
         </el-aside>
-        <el-main class="main-content">
+        <el-main :class="`main-content ${isMobile ? 'mobile-main' : ''}`">
           <el-scrollbar
             :height="`calc(100vh-${footerHeight + 20 + isMobile ? 0 : 60}px`"
           >
@@ -97,6 +97,9 @@ export default defineComponent({
   width: 100vw;
   .main-content {
     padding-bottom: 0;
+  }
+  .mobile-main {
+    padding-top: 24px;
   }
 }
 
