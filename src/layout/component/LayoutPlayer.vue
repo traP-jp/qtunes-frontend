@@ -238,6 +238,12 @@ export default defineComponent({
       overflow: hidden;
       flex-shrink: 4;
       margin: auto 0;
+      & > a {
+        text-decoration-line: none;
+        &:hover {
+          text-decoration-line: underline;
+        }
+      }
       & > div {
         overflow: hidden;
         text-overflow: ellipsis;
