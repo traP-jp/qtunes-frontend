@@ -3,7 +3,10 @@
     <el-container class="layout-container">
       <!-- TODO: レイアウト配置をいい感じにする (scrollbar の height 指定とかちょっとキモい fixed とか) -->
       <LayoutHeader v-if="!isMobile" />
-      <el-container>
+      <!-- HACK: 高さ指定しないと scrollbar が起動しなくなっちゃった (原因不明) -->
+      <el-container
+        :style="`height: calc(100vh - ${footerHeight + (isMobile ? 0 : 60)}px)`"
+      >
         <el-aside v-if="!isMobile" class="aside-content">
           <el-scrollbar
             :height="`calc(100vh - ${footerHeight + (isMobile ? 0 : 60)}px)`"
@@ -11,9 +14,11 @@
             <CreatorsList />
           </el-scrollbar>
         </el-aside>
-        <el-main :class="`main-content ${isMobile ? 'mobile-main' : ''}`">
+        <el-main :class="`main-content${isMobile ? ' mobile-main' : ''}`">
           <el-scrollbar
-            :height="`calc(100vh-${footerHeight + 20 + (isMobile ? 0 : 60)}px`"
+            :height="`calc(100vh-${
+              footerHeight + (isMobile ? 24 : 60 + 20)
+            }px)`"
           >
             <slot />
           </el-scrollbar>
