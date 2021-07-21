@@ -6,14 +6,14 @@
       <el-container>
         <el-aside v-if="!isMobile" class="aside-content">
           <el-scrollbar
-            :height="`calc(100vh - ${footerHeight + isMobile ? 0 : 60}px)`"
+            :height="`calc(100vh - ${footerHeight + (isMobile ? 0 : 60)}px)`"
           >
             <CreatorsList />
           </el-scrollbar>
         </el-aside>
         <el-main :class="`main-content ${isMobile ? 'mobile-main' : ''}`">
           <el-scrollbar
-            :height="`calc(100vh-${footerHeight + 20 + isMobile ? 0 : 60}px`"
+            :height="`calc(100vh-${footerHeight + 20 + (isMobile ? 0 : 60)}px`"
           >
             <slot />
           </el-scrollbar>
@@ -79,7 +79,7 @@ export default defineComponent({
       } else if (isPlaying.value) {
         height = 80
       }
-      return `${height}px`
+      return height
     })
 
     return {
