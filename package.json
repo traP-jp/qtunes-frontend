@@ -1,5 +1,13 @@
 {
   "version": "0.0.0",
+  "name": "qtunes",
+  "private": true,
+  "description": "traP hackathon project on 2021 spring",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hackathon-21-spring-02/front-end"
+  },
+  "homepage": "https://trap.jp/post/1315/",
   "scripts": {
     "dev": "vite --port 8080",
     "build": "vite build",
